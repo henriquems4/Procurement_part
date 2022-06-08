@@ -136,6 +136,22 @@ input[type=submit]:hover {
   background-color: #4a96d2;
 }
 
+.bottons {
+  background-color: #3972a9;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+    float:right;
+    margin: 2px;
+}
+
+.bottons:hover {
+  background-color: #4a96d2;
+}
+
+
 .col-25 {
   float: left;
   width: 25%;
@@ -167,4 +183,13 @@ input[type=submit]:hover {
 #information_form{
     float: left;
     width: 50%;
+}
+
+.top_creation{
+    width: 95%;
+}
+
+.tittle_component{
+    float:left;
+    font-size: 30px;
 }

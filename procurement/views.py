@@ -33,6 +33,64 @@ def logoutUser(request):
     logout(request)
     return redirect('/login')
 
+"""@login_required(login_url='/login')
+def updatemodule_(request ,pk):
+    modules=pv_modules.objects.get(id=pk)
+    form = pv_modules_creation(instance=modules)
+    if request.method == 'POST':
+        modules_form=pv_modules_creation(data=request.POST,instance=modules)
+        if modules_form.is_valid():
+            new_module=modules_form.save(commit=False)
+            new_module.save()
+            return HttpResponseRedirect ('/procurement/pv_modules/',{'message':'Module Saved'})
+    guardar='Update Module'
+    context = {'form':form,'name_save':guardar}
+    return render(request, 'Procurement/procurement_part/creation.html',context)
+"""
+
+#Creation of the PV Modules
+"""needed:
+1- Information that this part is already created
+2- Error messages when something is going bad"""
+@login_required(login_url='/login')
+def pv_modules_(request):
+    new_pv_module= None
+    name_part = 'PV Module Creation'
+    name_save = 'Save PV Module'
+    brand_options=pv_module_brand.objects.all()
+    power_options=pv_modules_power.objects.all()
+    created = False
+    done = ''
+    if request.method == 'POST':
+        try:
+        #pv_module_form=pv_modules_creation(data=request.POST)
+            modules_id = request.POST.get('pv_module_id')
+            brand = request.POST.get('brand')
+            power_range = request.POST.get('power')
+            product_name = request.POST.get('product_name')
+            price_EXW = request.POST.get('price_EXW')
+            price_CIF = request.POST.get('price_CIF')
+            price_DDP = request.POST.get('price_DDP')
+            price_FOB = request.POST.get('price_FOB')
+            payment_conditions = request.POST.get('payment_conditions')
+            marca = pv_module_brand.objects.get(brand_id=brand)
+            potencia = pv_modules_power.objects.get(power_id=power_range)
+            pv_modules.objects.create(modules_id=modules_id,brand=marca,product_name=product_name,power_range=potencia,price_EXW=float(price_EXW),price_CIF=float(price_CIF),price_DDP=float(price_DDP),price_FOB=float(price_FOB),payment_conditions=payment_conditions)
+            created = True
+            done = 'PV Module '+modules_id+' Saved with Sucess'
+        except Exception as e:
+            created = True
+            done = 'Error: Values were wrong! Try Again!'
+        #if pv_module_form.is_valid():
+            #new_pv_module=pv_module_form.save(commit=False)
+            #new_pv_module.save()
+            #return HttpResponseRedirect ('/procurement/pv_modules/',{'message':'Inverter Saved'})
+    #else:
+        #pv_module_form=pv_modules_creation()
+    return render(request, 'Procurement/procurement_part/pv_modules_form.html',{'name_save':name_save,'name_part':name_part,'brand_options':brand_options,'power_options':power_options,'created':created,'done':done})
+
+
+
 @login_required(login_url='/login')
 def brand_(request):
     new_brand=None
@@ -281,20 +339,7 @@ def deleteother (request,pk):
     return render(request,'Procurement/procurement_part/delete.html',context)
 
 
-"""@login_required(login_url='/login')
-def updatemodule_(request ,pk):
-    modules=pv_modules.objects.get(id=pk)
-    form = pv_modules_creation(instance=modules)
-    if request.method == 'POST':
-        modules_form=pv_modules_creation(data=request.POST,instance=modules)
-        if modules_form.is_valid():
-            new_module=modules_form.save(commit=False)
-            new_module.save()
-            return HttpResponseRedirect ('/procurement/pv_modules/',{'message':'Module Saved'})
-    guardar='Update Module'
-    context = {'form':form,'name_save':guardar}
-    return render(request, 'Procurement/procurement_part/creation.html',context)
-"""
+
 
 @login_required(login_url='/login')
 def deletemodule (request,pk):
@@ -466,44 +511,6 @@ def inverter_acessorie(request):
 def other(request):
     parts = others.objects.all()
     return render(request,'Procurement/procurement_part/others.html',{'others':parts})
-
-
-@login_required(login_url='/login')
-def pv_modules_(request):
-    new_pv_module= None
-    name_part = 'PV Module Creation'
-    name_save = 'Save PV Module'
-    brand_options=pv_module_brand.objects.all()
-    power_options=pv_modules_power.objects.all()
-    created = False
-    done = ''
-    if request.method == 'POST':
-        try:
-        #pv_module_form=pv_modules_creation(data=request.POST)
-            modules_id = request.POST.get('pv_module_id')
-            brand = request.POST.get('brand')
-            power_range = request.POST.get('power')
-            product_name = request.POST.get('product_name')
-            price_EXW = request.POST.get('price_EXW')
-            price_CIF = request.POST.get('price_CIF')
-            price_DDP = request.POST.get('price_DDP')
-            price_FOB = request.POST.get('price_FOB')
-            payment_conditions = request.POST.get('payment_conditions')
-            marca = pv_module_brand.objects.get(brand_id=brand)
-            potencia = pv_modules_power.objects.get(power_id=power_range)
-            pv_modules.objects.create(modules_id=modules_id,brand=marca,product_name=product_name,power_range=potencia,price_EXW=float(price_EXW),price_CIF=float(price_CIF),price_DDP=float(price_DDP),price_FOB=float(price_FOB),payment_conditions=payment_conditions)
-            created = True
-            done = 'PV Module '+modules_id+' Saved with Sucess'
-        except Exception as e:
-            created = True
-            done = 'Error: Values were wrong! Try Again!'
-        #if pv_module_form.is_valid():
-            #new_pv_module=pv_module_form.save(commit=False)
-            #new_pv_module.save()
-            #return HttpResponseRedirect ('/procurement/pv_modules/',{'message':'Inverter Saved'})
-    #else:
-        #pv_module_form=pv_modules_creation()
-    return render(request, 'Procurement/procurement_part/pv_modules_form.html',{'name_save':name_save,'name_part':name_part,'brand_options':brand_options,'power_options':power_options,'created':created,'done':done})
 
 
 @login_required(login_url='/login')
