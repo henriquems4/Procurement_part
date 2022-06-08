@@ -1,0 +1,35 @@
+{% extends "Procurement/base.html" %}
+{% block title %}AC Cables{% endblock %}
+{% block content %}
+    <div class="top_creation">
+        <h1>AC Cables</h1> <a href="/ac_cables/create_ac_cables" class="part_creation">Create AC Cables</a>
+    </div>
+<div class="table">
+<table id="myTable2">
+    <tr>
+        <th onclick="sortTable(0)">Id</th>
+        <th onclick="sortTable(1)">Product Name</th>
+        <th onclick="sortTable(2)">Type</th>
+        <th onclick="sortTable(3)">Brand</th>
+        <th onclick="sortTable(4)">Vendor</th>
+        <th onclick="sortTable2(5)">Price</th>
+        <th onclick="sortTable2(6)">Stock</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    {% for i in ac_cables %}
+    <tr>
+        <td><a href="{% url 'O_and_M:ac_cable_detail' i.id %}">{{ i.id }}</a></td>
+        <td>{{ i.product_name }}</td>
+        <td>{{ i.type }}</td>
+        <td>{{ i.brand }}</td>
+        <td>{{ i.vendor }}</td>
+        <td>{{ i.price }}</td>
+        <td>{{ i.inventory }}</td>
+        <td><a href="{% url 'O_and_M:update_ac_cables' i.id%}" class="part_creation2">Update</a></td>
+        <td><a href="{% url 'O_and_M:delete_ac_cables' i.id %}" class="part_creation2">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+    </div>
+{% endblock %}

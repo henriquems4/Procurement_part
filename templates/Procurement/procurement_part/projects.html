@@ -1,0 +1,29 @@
+{% extends "Procurement/base.html" %}
+{% block title %}Projects{% endblock %}
+{% block content %}
+    <div class="top_creation">
+        <h1>Projects</h1> <a href="/projects/new_project" class="part_creation">Create Project</a>
+    </div>
+<div class="table">
+    <table id="myTable2">
+    <tr>
+        <th onclick="sortTable(0)">Project Id</th>
+        <th onclick="sortTable(1)">Project Name</th>
+        <th onclick="sortTable2(2)">Total Peak Power (kWp)</th>
+        <th onclick="sortTable2(3)">Total Power Ac (kWac)</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    {% for i in projects %}
+    <tr>
+        <td><a href="{% url 'O_and_M:project_detail' i.id %}">{{ i.id }}</a></td>
+        <td>{{ i.name }}</td>
+        <td>{{ i.total_peak_power }}</td>
+        <td>{{ i.total_power_ac }}</td>
+        <td><a href="{% url 'O_and_M:update_project' i.id%}" class="part_creation2">Update</a></td>
+        <td><a href="{% url 'O_and_M:delete_project' i.id %}" class="part_creation2">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

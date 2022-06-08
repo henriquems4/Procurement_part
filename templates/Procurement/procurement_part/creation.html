@@ -1,0 +1,16 @@
+{% extends "Procurement/base.html" %}
+{% block title %}{{ name_save }}{% endblock %}
+{% block content %}
+    <div style="display: flex; justify-content: center">
+        <form method="post">
+        {% for field in form %}
+        <div style="padding: 5px">
+            <a class="label">{{ field.label_tag }}</a>
+            {{ field }}
+        </div>
+        {% endfor %}
+            {% csrf_token %}
+        <input type="submit" value="{{ name_save }}" class="part_creation3">
+    </form>
+    </div>
+{% endblock %}

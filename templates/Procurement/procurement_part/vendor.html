@@ -1,0 +1,27 @@
+{% extends "Procurement/base.html" %}
+{% block title %}Vendor{% endblock %}
+{% block content %}
+    <div class="top_creation">
+        <h1>Vendors</h1> <a href="/vendors/new_vendor" class="part_creation">Create Vendor</a>
+    </div>
+    <div class="table">
+<table id="myTable2">
+    <tr>
+        <th onclick="sortTable(0)">Name</th>
+        <th onclick="sortTable(1)">Contact</th>
+        <th onclick="sortTable2(2)">Email</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    {% for i in vendors %}
+    <tr>
+        <td>{{ i.name }}</td>
+        <td>{{ i.contact }}</td>
+        <td>{{ i.email }}</td>
+        <td><a href="{% url 'O_and_M:update_vendor' i.id %}" class="part_creation2">Update</a></td>
+        <td><a href="{% url 'O_and_M:delete_vendor' i.id %}" class="part_creation2">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+    </div>
+{% endblock %}

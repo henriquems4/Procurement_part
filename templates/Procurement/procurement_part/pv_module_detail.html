@@ -1,0 +1,21 @@
+{% extends "Procurement/base.html" %}
+{% block title %}Pv Modules Detail{% endblock %}
+{% block content %}
+    <div class="top_creatio3">
+        <p>Inverter ID: {{ pv_module.id }}</p>
+        <p>Inverter Name: {{ pv_module.product_name }}</p>
+        <p>Power: {{ pv_module.power_range }}</p>
+        <p>Inventory: {{ pv_module.inventory }}</p>
+    </div>
+    <form method="post">
+        {% for field in form %}
+        <div style="padding: 5px">
+            <a class="label">{{ field.label_tag }}</a>
+            {{ field }}
+        </div>
+        {% endfor %}
+            {% csrf_token %}
+        <input type="submit" value="Adicionar" class="part_creation2">
+    </form>
+</table>
+{% endblock %}

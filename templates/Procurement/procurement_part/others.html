@@ -1,0 +1,33 @@
+{% extends "Procurement/base.html" %}
+{% block title %}Others{% endblock %}
+{% block content %}
+    <div class="top_creation">
+        <h1>Others</h1> <a href="/others/create_others" class="part_creation">Create Other</a>
+    </div>
+<div class="table">
+    <table id="myTable2">
+    <tr>
+        <th onclick="sortTable(0)">Id</th>
+        <th onclick="sortTable(1)">Product Name</th>
+        <th onclick="sortTable(2)">Brand</th>
+        <th onclick="sortTable(3)">Vendor</th>
+        <th onclick="sortTable2(4)">Price</th>
+        <th onclick="sortTable2(5)">Stock</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    {% for i in others %}
+    <tr>
+        <td><a href="{% url 'O_and_M:others_detail' i.id %}">{{ i.id }}</a></td>
+        <td>{{ i.product_name }}</td>
+        <td>{{ i.brand }}</td>
+        <td>{{ i.vendor }}</td>
+        <td>{{ i.price }}</td>
+        <td>{{ i.inventory }}</td>
+        <td><a href="{% url 'O_and_M:update_other' i.id%}" class="part_creation2">Update</a></td>
+        <td><a href="{% url 'O_and_M:delete_other' i.id %}" class="part_creation2">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

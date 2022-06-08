@@ -1,0 +1,160 @@
+body {
+    margin:0;
+    padding:0;
+    font-family:helvetica, sans-serif;
+}
+
+a {
+    color:#00abff;
+    display: flex;
+}
+
+h1 {
+    font-weight:normal;
+    border-bottom:1px solid #bbb;
+}
+
+h2 {
+    font-weight:normal;
+}
+
+#content2 {
+    float:left;
+    width:65%;
+    padding:0 0 0 60px;
+}
+
+#sidebar {
+    float:right;
+    width:20%;
+    padding:10px;
+    background:#efefef;
+    height:100%;
+    margin: 30px;
+}
+
+#right-button{
+    margin-left: 200px;
+    margin-bottom: 20px;
+    margin-top: 2px;
+}
+
+#div_plant{
+    border: solid 1px black;
+}
+
+#div_plant2{
+    display: flex;
+}
+
+p.date {
+    font-family: georgia, serif;
+    margin-left: auto;
+    margin-right: auto;
+    width: 15em
+
+}
+
+p.location{
+    color:#ccc;
+    font-family: georgia, serif;
+    font-size: 12px;
+    font-style: italic;
+
+}
+
+/* pagination */
+.pagination {
+    margin:40px 0;
+    font-weight:bold;
+}
+
+.formada{
+    width: 100%;
+    display: inline-flex;
+}
+
+/* forms */
+label {
+    float:left;
+    clear:both;
+    color:#333;
+    margin-bottom:4px;
+}
+input, textarea {
+    clear:both;
+    float:left;
+    margin:0 0 10px;
+    background:#ededed;
+    border:0;
+    padding:6px 10px;
+    font-size:12px;
+}
+input[type=submit] {
+    font-weight:bold;
+    background:#00abff;
+    color:#fff;
+    padding:10px 20px;
+    font-size:14px;
+    text-transform:uppercase;
+}
+.errorlist {
+    color:#cc0033;
+    float:left;
+    clear:both;
+    padding-left:10px;
+}
+
+
+.comment:nth-child(even) {
+    background:#efefef;
+}
+.comment .info {
+    font-weight:bold;
+    font-size:12px;
+    color:#666;
+}
+
+.sidenav{
+    height: 100%;
+    width: 0;
+    position:fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main{
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+@media screen and (max-height: 450px){
+    .sidenav {padding-top: 15px;}
+    .sidenav a{font-size: 18px;}
+}

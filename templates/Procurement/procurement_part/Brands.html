@@ -1,0 +1,27 @@
+{% extends "Procurement/base.html" %}
+{% load static %}
+{% block title %}Brands{% endblock %}
+{% block content %}
+    <div class="top_creation">
+        <h1>Brands</h1> <a href="/brands/new_brand" class="part_creation">Create Brand</a>
+    </div>
+    <div class="table">
+<table id="myTable2">
+    <tr>
+        <th onclick="sortTable(0)">Name</th>
+        <th onclick="sortTable2(2)">Link</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    {% for i in brands %}
+    <tr>
+        <td>{{ i.name }}</td>
+        <td>{{ i.link }}</td>
+        <td class="td_up_ex"><a href="{% url 'O_and_M:update_brand' i.id %}" class="part_creation2"><img src="{% static 'Atualizar.png' %}"></a></td>
+        <td class="td_up_ex"><a href="{% url 'O_and_M:delete_brand' i.id %}" class="part_creation2"><img src="{% static 'Excluir.png' %}"></a></td>
+    </tr>
+    {% endfor %}
+</table>
+    </div>
+
+{% endblock %}

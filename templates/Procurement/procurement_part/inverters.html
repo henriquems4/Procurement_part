@@ -1,0 +1,35 @@
+{% extends "Procurement/base.html" %}
+{% block title %}Inverters{% endblock %}
+{% block content %}
+    <div class="top_creation">
+        <h1>Inverters</h1> <a href="/inverters/create_inverter" class="part_creation">Create Inverter</a>
+    </div>
+    <div class="table">
+<table id="myTable2">
+    <tr>
+        <th onclick="sortTable(0)">Id</th>
+        <th onclick="sortTable(1)">Product Name</th>
+        <th onclick="sortTable2(2)">Power</th>
+        <th onclick="sortTable(3)">Brand</th>
+        <th onclick="sortTable(4)">Vendor</th>
+        <th onclick="sortTable2(5)">Price</th>
+        <th onclick="sortTable2(6)">Stock</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    {% for i in inversores %}
+    <tr>
+        <td><a href="{% url 'O_and_M:inverter_detail' i.id %}">{{ i.id }}</a></td>
+        <td>{{ i.product_name }}</td>
+        <td>{{ i.power }}</td>
+        <td>{{ i.brand }}</td>
+        <td>{{ i.vendor }}</td>
+        <td>{{ i.price }}</td>
+        <td>{{ i.inventory }}</td>
+        <td><a href="{% url 'O_and_M:update_inverter_' i.id %}" class="part_creation2">Update</a></td>
+        <td><a href="{% url 'O_and_M:delete_inverter' i.id %}" class="part_creation2">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+    </div>
+{% endblock %}

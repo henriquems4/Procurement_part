@@ -1,0 +1,11 @@
+{% extends "Procurement/base.html" %}
+{% block title %}{{ name_save }}{% endblock %}
+{% block content %}
+    <p>Are you sure you want to delete "{{ item }}"?</p>
+
+    <form method="POST">
+    {% csrf_token %}
+    <a href="{{ next }}" class="part_creation2">Cancel</a>
+    <input type="submit" name="Confirm" value="Confirm" class="part_creation2">
+    </form>
+{% endblock %}

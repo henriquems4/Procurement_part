@@ -1,0 +1,22 @@
+{% extends "Procurement/base.html" %}
+{% block title %}Add Item{% endblock %}
+{% block content %}
+<table id="myTable2">
+    <tr>
+        <th onclick="sortTable(0)">Id</th>
+        <th onclick="sortTable(1)">Name</th>
+        <th>Add</th>
+    </tr>
+    {% for i in projects %}
+    <tr>
+        <td>{{ i.id }}</td>
+        <td>{{ i.name }}</td>
+        <td><form method="POST">
+            <input type="hidden" value="{{ i.id }}" name="project_value">
+            <button type="submit">Add Item</button>
+            {% csrf_token %}</form></td>
+
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

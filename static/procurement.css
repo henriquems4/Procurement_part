@@ -1,0 +1,170 @@
+#box_total {
+    display: inline-flex;
+    width: 100%;
+}
+
+#box_total p a {
+    margin-left: 2%;
+    display: inline;
+    position: relative;
+    padding: 0.2em 0;
+}
+
+#box_total p a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1em;
+    background-color: #f07e26;
+    opacity: 0;
+    transition: opacity 300ms, transform 300ms;
+}
+
+#box_total p a:hover::after,
+#box_total p a:focus::after {
+    opacity: 1;
+    transform: translate3d(0, 0.2em, 0);
+}
+
+#box_total p a::after {
+    opacity: 1;
+    transform: scale(0);
+    transform-origin: center;
+}
+
+#box_total p a:hover::after,
+#box_total p a:focus::after {
+    transform: scale(1);
+}
+
+#mySidenav a {
+    position: absolute;
+    left: -80px;
+    transition: 0.3s;
+    padding: 18px;
+    width: 100px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    margin-top: 13%;
+}
+
+#mySidenav a:hover {
+    left: 0;
+}
+
+#about {
+    top: 20px;
+    background-color: #f07e26;
+}
+
+#blog {
+    top: 80px;
+    background-color: #f07e26;
+}
+
+#projects {
+    top: 140px;
+    background-color: #f07e26;
+}
+
+#contente{
+    margin-left: 5.5%;
+}
+
+div.table {
+    border: 1px solid #000;
+    display: inline-block;
+    padding: 1px; /*space between the borders*/
+    width:95%;
+}
+
+#myTable2, th{
+    border-bottom: 1px solid;
+    text-align: left;
+}
+
+#myTable2{
+    border: 1px solid
+}
+
+#myTable2 {
+    width : 100%;
+}
+
+th, td{
+    padding-bottom: 5px;
+    padding-top:5px;
+}
+/*forms style*/
+
+
+input[type=text], select, textarea {
+  width: 70%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.selexct{
+      width: 70%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #3972a9;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #4a96d2;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: right;
+  width: 60%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#information{
+    float: left;
+}
+
+#Nome_Marca,#link_Marca,#nome_vendedor,#Contacto_vendedor,#Email_vendedor, #mensagem_pos{
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+#information_form{
+    float: left;
+    width: 50%;
+}

@@ -1,0 +1,21 @@
+{% extends "Procurement/base.html" %}
+{% block title %}Ac Cables Detail{% endblock %}
+{% block content %}
+    <div class="top_creatio3">
+        <p>Ac Cable ID: {{ ac_cable.id }}</p>
+        <p>Ac Cable Name: {{ ac_cable.product_name }}</p>
+        <p>Type: {{ ac_cable.type }}</p>
+        <p>Inventory: {{ ac_cable.inventory }}</p>
+    </div>
+    <form method="post">
+        {% for field in form %}
+        <div style="padding: 5px">
+            <a class="label">{{ field.label_tag }}</a>
+            {{ field }}
+        </div>
+        {% endfor %}
+            {% csrf_token %}
+        <input type="submit" value="Adicionar" class="part_creation2">
+    </form>
+</table>
+{% endblock %}

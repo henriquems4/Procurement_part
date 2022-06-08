@@ -1,0 +1,196 @@
+{% extends "Procurement/base.html" %}
+{% block title %}Projects Detail{% endblock %}
+{% block content %}
+    <div class="top_creatio3">
+        <p><span>Project ID: {{ project.id }}</span><span style="margin-left: 30%">Project Name: {{ project.name }}</span></p>
+        <p><span>Total Power AC (kWac): {{ project.total_power_ac }}</span><span style="margin-left: 30%">Total Peak Power (kWp): {{ project.total_peak_power }}</span></p>
+        <p><span>Location: {{ project.location }}</span><span style="margin-left: 30%">Tilt: {{ project.tilt }}</span></p>
+        <p><span>Available Area (m<sup>2</sup>): {{ project.available_area }}</span><span style="margin-left: 30%">Usable Area (m<sup>2</sup>):{{ project.usable_area }}</span></p>
+    </div>
+    <div class="top_creation">
+        <a href="{% url 'O_and_M:venue_pdf' project.id %}" target="_blank" class="part_creation">Bill of Quantities</a>
+    </div>
+    {% if counter_inverters != 0%}
+    <table id="myTable2">
+        <tr>
+            <th onclick="sortTable(0)">Inverter Id</th>
+            <th onclick="sortTable(1)">Inverter Name</th>
+            <th onclick="sortTable(2)">Power</th>
+            <th onclick="sortTable(3)">Quantity</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in inverters_list %}
+            <tr>
+                <td>{{ i.0 }}</td>
+                <td>{{ i.1 }}</td>
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td><a href="{% url 'O_and_M:update_order_inverter' project.id i.4 %}" class="part_creation2">Update</a></td>
+                <td><a href="{% url 'O_and_M:delete_order_inverter' project.id i.4 %}" class="part_creation2">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+    <p></p>
+    {% if counter_modulos != 0%}
+    <table id="myTable2">
+        <tr>
+            <th onclick="sortTable(0)">Module Id</th>
+            <th onclick="sortTable(1)">Module Name</th>
+            <th onclick="sortTable(2)">Power Range</th>
+            <th onclick="sortTable(3)">Quantity</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in pv_modules_list %}
+            <tr>
+                <td>{{ i.0 }}</td>
+                <td>{{ i.1 }}</td>
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td><a href="{% url 'O_and_M:update_order_module' project.id i.4 %}" class="part_creation2">Update</a></td>
+                <td><a href="{% url 'O_and_M:delete_order_module' project.id i.4 %}" class="part_creation2">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+    <p></p>
+     {% if counter_construction != 0%}
+    <table id="mytable2">
+        <tr>
+            <th onclick="sortTable(0)">Construction Id</th>
+            <th onclick="sortTable(1)">Construction Name</th>
+            <th onclick="sortTable(2)">Brand</th>
+            <th onclick="sortTable(3)">Quantity</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in construction_list %}
+            <tr>
+                <td>{{ i.0 }}</td>
+                <td>{{ i.1 }}</td>
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td><a href="{% url 'O_and_M:update_order_construction' project.id i.4 %}" class="part_creation2">Update</a></td>
+                <td><a href="{% url 'O_and_M:delete_order_construction' project.id i.4 %}" class="part_creation2">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+    <p></p>
+     {% if counter_structures != 0%}
+    <table id="mytable2">
+        <tr>
+            <th onclick="sortTable(0)">Structure Id</th>
+            <th onclick="sortTable(1)">Structure Name</th>
+            <th onclick="sortTable(2)">Type</th>
+            <th onclick="sortTable(3)">Quantity</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in structures_list %}
+            <tr>
+                <td>{{ i.0 }}</td>
+                <td>{{ i.1 }}</td>
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td><a href="{% url 'O_and_M:update_order_structure' project.id i.4 %}" class="part_creation2">Update</a></td>
+                <td><a href="{% url 'O_and_M:delete_order_structure' project.id i.4 %}" class="part_creation2">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+    <p></p>
+     {% if counter_inv_acessories != 0%}
+    <table id="mytable2">
+        <tr>
+            <th onclick="sortTable(0)">Inv Acessorie Id</th>
+            <th onclick="sortTable(1)">Inv Acessorie Name</th>
+            <th onclick="sortTable(2)">Type</th>
+            <th onclick="sortTable(3)">Quantity</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in inv_acessories_list %}
+            <tr>
+                <td>{{ i.0 }}</td>
+                <td>{{ i.1 }}</td>
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td><a href="{% url 'O_and_M:update_order_inv_acessorie' project.id i.4 %}" class="part_creation2">Update</a></td>
+                <td><a href="{% url 'O_and_M:delete_order_inv_acessorie' project.id i.4 %}" class="part_creation2">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+    <p></p>
+     {% if counter_ac_cable != 0%}
+    <table id="mytable2">
+        <tr>
+            <th onclick="sortTable(0)">Ac Cable Id</th>
+            <th onclick="sortTable(1)">Ac Cable Name</th>
+            <th onclick="sortTable(2)">Type</th>
+            <th onclick="sortTable(3)">Quantity</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in ac_cable_list %}
+            <tr>
+                <td>{{ i.0 }}</td>
+                <td>{{ i.1 }}</td>
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td><a href="{% url 'O_and_M:update_order_ac_cables' project.id i.4 %}" class="part_creation2">Update</a></td>
+                <td><a href="{% url 'O_and_M:delete_order_ac_cables' project.id i.4 %}" class="part_creation2">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+    <p></p>
+     {% if counter_dc_cable != 0%}
+    <table id="mytable2">
+        <tr>
+            <th onclick="sortTable(0)">Dc Cable Id</th>
+            <th onclick="sortTable(1)">Dc Cable Name</th>
+            <th onclick="sortTable(2)">Type</th>
+            <th onclick="sortTable(3)">Quantity</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in dc_cable_list %}
+            <tr>
+                <td>{{ i.0 }}</td>
+                <td>{{ i.1 }}</td>
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td><a href="{% url 'O_and_M:update_order_dc_cables' project.id i.4 %}" class="part_creation2">Update</a></td>
+                <td><a href="{% url 'O_and_M:delete_order_dc_cables' project.id i.4 %}" class="part_creation2">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+    <p></p>
+     {% if counter_others != 0%}
+    <table id="mytable2">
+        <tr>
+            <th onclick="sortTable(0)">Other Id</th>
+            <th onclick="sortTable(1)">Other Name</th>
+            <th onclick="sortTable(2)">Brand</th>
+            <th onclick="sortTable(3)">Quantity</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in others_list %}
+            <tr>
+                <td>{{ i.0 }}</td>
+                <td>{{ i.1 }}</td>
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td><a href="{% url 'O_and_M:update_order_other' project.id i.4 %}" class="part_creation2">Update</a></td>
+                <td><a href="{% url 'O_and_M:delete_order_other' project.id i.4 %}" class="part_creation2">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

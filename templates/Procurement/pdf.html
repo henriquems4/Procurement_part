@@ -1,0 +1,436 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BoQ {{ project.name }}</title>
+    <link href="{% static 'procurement.css' %}" rel="stylesheet">
+    <link href="{% static 'style.js' %}" rel="script">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static "apple-touch-icon.png" %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static "favicon-32x32.png" %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static "favicon-16x16.png" %}">
+    <link rel="manifest" href="{% static "site.webmanifest" %}">
+    <link rel="mask-icon" href="{% static "safari-pinned-tab.svg" %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <style>
+			.invoice-box {
+				max-width: 800px;
+				margin: auto;
+				padding: 30px;
+				border: 1px solid #eee;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+				font-size: 16px;
+				line-height: 24px;
+				font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+				color: #555;
+			}
+
+            #table2 {
+                border-collapse: collapse;
+                table-layout: fixed;
+                border-spacing: 0;
+                width: 100%;
+                border: 1px solid #ddd;
+            }
+
+			.invoice-box table {
+				width: 100%;
+				line-height: inherit;
+				text-align: left;
+			}
+
+			.invoice-box table td {
+				padding: 5px;
+				vertical-align: top;
+			}
+
+			.invoice-box table tr td:nth-child(3) {
+				text-align: right;
+			}
+
+            .invoice-box table tr td:nth-child(2) {
+				text-align: center;
+			}
+
+			.invoice-box table tr.top table td {
+				padding-bottom: 10px;
+			}
+
+			.invoice-box table tr.top table td.title {
+				font-size: 45px;
+				line-height: 45px;
+				color: #333;
+			}
+
+			.invoice-box table tr.information table td {
+				padding-bottom: 4px;
+			}
+
+			.invoice-box table tr.heading td {
+				background: #eee;
+				border-bottom: 1px solid #ddd;
+				font-weight: bold;
+			}
+
+			.invoice-box table tr.details td {
+				padding-bottom: 2px;
+			}
+
+			.invoice-box table tr.item td {
+				border-bottom: 1px solid #eee;
+			}
+
+			.invoice-box table tr.item.last td {
+				border-bottom: none;
+			}
+
+			.invoice-box table tr.total td:nth-child(2) {
+				border-top: 2px solid #eee;
+				font-weight: bold;
+			}
+
+			@media only screen and (max-width: 600px) {
+				.invoice-box table tr.top table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+
+				.invoice-box table tr.information table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+			}
+
+			/** RTL **/
+			.invoice-box.rtl {
+				direction: rtl;
+				font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+			}
+
+			.invoice-box.rtl table {
+				text-align: right;
+			}
+
+			.invoice-box.rtl table tr td:nth-child(2) {
+				text-align: left;
+			}
+
+            .brand-section{
+           background-color: #0d1033;
+           padding: 10px 40px;
+        }
+        .logo{
+            width: 50%;
+        }
+
+        .row{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .col-6{
+            width: 50%;
+            flex: 0 0 auto;
+        }
+        .text-white{
+            color: #fff;
+        }
+        .company-details{
+            float: right;
+            text-align: right;
+        }
+        .body-section{
+            padding: 16px;
+            border: 1px solid gray;
+        }
+        .heading{
+            font-size: 20px;
+            margin-bottom: 08px;
+        }
+        .sub-heading{
+            color: #262626;
+            margin-bottom: 05px;
+        }
+        table{
+            background-color: #fff;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table thead tr{
+            border: 1px solid #111;
+            background-color: #f2f2f2;
+        }
+        table td {
+            vertical-align: middle !important;
+            text-align: center;
+        }
+        table th, table td {
+            padding-top: 08px;
+            padding-bottom: 08px;
+        }
+        .table-bordered{
+            box-shadow: 0px 0px 5px 0.5px gray;
+        }
+        .table-bordered td, .table-bordered th {
+            border: 1px solid #dee2e6;
+            font-size: 10px;
+        }
+        .text-right{
+            text-align: end;
+        }
+        .w-20{
+            width: 20%;
+        }
+        .float-right{
+            float: right;
+        }
+		</style>
+</head>
+<body>
+		<div class="invoice-box">
+			<table cellpadding="0" cellspacing="0">
+				<tr class="top">
+					<td colspan="3">
+						<table>
+							<tr>
+								<td class="title">
+									<img src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/zouoadlrp0da3gnytov2"  alt="Enzen Logo" width="100%" height="150px" />
+								</td>
+                                <td></td>
+								<td>
+									Bill of Quantities<br />
+                                    {{ current_datetime }}<br />
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="information">
+					<td colspan="3">
+						<table>
+							<tr>
+								<td>
+									Passeio de Neptuno 23<br />
+									1990-193, Parque das Nações - Lisboa, Portugal<br />
+								</td>
+                                <td></td>
+								<td>
+									Enzen Portugal<br />
+									Rafael Plácido<br />
+									rafael.placido@enzen.com
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+                <tr class="information">
+					<td colspan="3">
+						<table>
+							<tr>
+								<td>
+									Project ID: {{ project.id }}<br />
+									Total Power AC (kWac): {{ project.total_power_ac }}<br />
+                                    Location: {{ project.location }}<br />
+                                    Available Area (m<sup>2</sup>): {{ project.available_area }}<br />
+								</td>
+                                <td></td>
+								<td>
+									Project Name: {{ project.name }}<br />
+									Total Peak Power (kWp): {{ project.total_peak_power }}<br />
+                                    Tilt: {{ project.tilt }}<br />
+                                    Usable Area (m<sup>2</sup>):{{ project.usable_area }}<br />
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+
+			</table>
+
+		</div>
+        {% if counter_inverters != 0%}
+        <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th>Inverter</th>
+                        <th class="w-20">Type</th>
+                        <th class="w-20">Quantity</th>
+                    </tr>
+                </thead>
+            {% for i in inverters_list %}
+                <tbody>
+                    <tr>
+                        <td>{{ i.1 }}</td>
+                        <td>{{ i.2 }}</td>
+                        <td>{{ i.3 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if counter_modulos != 0%}
+        <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th>Modules</th>
+                        <th class="w-20">Type</th>
+                        <th class="w-20">Quantity</th>
+                    </tr>
+                </thead>
+            {% for i in pv_modules_list %}
+                <tbody>
+                    <tr>
+                        <td>{{ i.1 }}</td>
+                        <td>{{ i.2 }}</td>
+                        <td>{{ i.3 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if counter_construction != 0%}
+        <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th>Construction</th>
+                        <th class="w-20">Type</th>
+                        <th class="w-20">Quantity</th>
+                    </tr>
+                </thead>
+            {% for i in construction_list %}
+                <tbody>
+                    <tr>
+                        <td>{{ i.1 }}</td>
+                        <td>{{ i.2 }}</td>
+                        <td>{{ i.3 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if counter_structures != 0%}
+        <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th>Structures</th>
+                        <th class="w-20">Type</th>
+                        <th class="w-20">Quantity</th>
+                    </tr>
+                </thead>
+            {% for i in structures_list %}
+                <tbody>
+                    <tr>
+                        <td>{{ i.1 }}</td>
+                        <td>{{ i.2 }}</td>
+                        <td>{{ i.3 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if counter_inv_acessories != 0%}
+        <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th>Inverter Acessories</th>
+                        <th class="w-20">Type</th>
+                        <th class="w-20">Quantity</th>
+                    </tr>
+                </thead>
+            {% for i in inv_acessories_list %}
+                <tbody>
+                    <tr>
+                        <td>{{ i.1 }}</td>
+                        <td>{{ i.2 }}</td>
+                        <td>{{ i.3 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if counter_ac_cable != 0%}
+        <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ac Cables</th>
+                        <th class="w-20">Type</th>
+                        <th class="w-20">Quantity</th>
+                    </tr>
+                </thead>
+            {% for i in ac_cable_list %}
+                <tbody>
+                    <tr>
+                        <td>{{ i.1 }}</td>
+                        <td>{{ i.2 }}</td>
+                        <td>{{ i.3 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if counter_ac_cable != 0%}
+        <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ac Cables</th>
+                        <th class="w-20">Type</th>
+                        <th class="w-20">Quantity</th>
+                    </tr>
+                </thead>
+            {% for i in ac_cable_list %}
+                <tbody>
+                    <tr>
+                        <td>{{ i.1 }}</td>
+                        <td>{{ i.2 }}</td>
+                        <td>{{ i.3 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if counter_dc_cable != 0%}
+        <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th>Dc Cables</th>
+                        <th class="w-20">Type</th>
+                        <th class="w-20">Quantity</th>
+                    </tr>
+                </thead>
+            {% for i in dc_cable_list %}
+                <tbody>
+                    <tr>
+                        <td>{{ i.1 }}</td>
+                        <td>{{ i.2 }}</td>
+                        <td>{{ i.3 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if counter_others != 0%}
+        <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th>Others</th>
+                        <th class="w-20">Type</th>
+                        <th class="w-20">Quantity</th>
+                    </tr>
+                </thead>
+            {% for i in others_list %}
+                <tbody>
+                    <tr>
+                        <td>{{ i.1 }}</td>
+                        <td>{{ i.2 }}</td>
+                        <td>{{ i.3 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+	</body>
+</html>
