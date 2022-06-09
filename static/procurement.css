@@ -1,3 +1,11 @@
+html{
+      -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+    font-family: Josefin Sans, sans-serif;
+}
+
 #box_total {
     display: inline-flex;
     width: 100%;
@@ -50,6 +58,7 @@
     color: white;
     border-radius: 0 5px 5px 0;
     margin-top: 13%;
+        font-family: Josefin Sans, sans-serif;
 }
 
 #mySidenav a:hover {
@@ -75,29 +84,39 @@
     margin-left: 5.5%;
 }
 
-div.table {
-    border: 1px solid #000;
+.table123 {
+    border: 1px solid #C1C1C1;
     display: inline-block;
     padding: 1px; /*space between the borders*/
     width:95%;
 }
 
 #myTable2, th{
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #C1C1C1;
     text-align: left;
+        font-family: Josefin Sans, sans-serif;
+
+}
+
+th{
+    background-color: rgb(188,182,180,0.3);
 }
 
 #myTable2{
-    border: 1px solid
+    border: 1px solid #C1C1C1;
+        font-family: Josefin Sans, sans-serif;
 }
 
 #myTable2 {
     width : 100%;
+    table-layout: fixed;
+        font-family: Josefin Sans, sans-serif;
 }
 
 th, td{
     padding-bottom: 5px;
     padding-top:5px;
+        font-family: Josefin Sans, sans-serif;
 }
 /*forms style*/
 
@@ -124,7 +143,7 @@ label {
 }
 
 input[type=submit] {
-  background-color: #3972a9;
+  background-color: #f07e26;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -133,11 +152,11 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-  background-color: #4a96d2;
+  background-color: #e78f47;
 }
 
 .bottons {
-  background-color: #3972a9;
+  background-color: #f07e26;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -145,10 +164,12 @@ input[type=submit]:hover {
   cursor: pointer;
     float:right;
     margin: 2px;
+        font-family: Josefin Sans, sans-serif;
 }
 
 .bottons:hover {
-  background-color: #4a96d2;
+  background-color: #e78f47;
+        font-family: Josefin Sans, sans-serif;
 }
 
 
@@ -173,6 +194,8 @@ input[type=submit]:hover {
 
 #information{
     float: left;
+        background-color: #ffffff;
+    font-family: Josefin Sans, sans-serif;
 }
 
 #Nome_Marca,#link_Marca,#nome_vendedor,#Contacto_vendedor,#Email_vendedor, #mensagem_pos{
@@ -183,6 +206,7 @@ input[type=submit]:hover {
 #information_form{
     float: left;
     width: 50%;
+
 }
 
 .top_creation{
@@ -192,4 +216,48 @@ input[type=submit]:hover {
 .tittle_component{
     float:left;
     font-size: 30px;
+        font-family: Josefin Sans, sans-serif;
+}
+
+.reboot_icon{
+    width: 30px;
+    transition: transform .7s ease-in-out;
+    margin-left: 4%;
+}
+
+.reboot_icon:hover{
+    transform: rotate(360deg);
+}
+
+.delete_icon{
+    width: 30px;
+    transition: transform .3s ease-in-out;
+    margin-left: 4%;
+
+}
+
+.delete_icon:hover{
+    transform: rotate(180deg);
+}
+
+.bottons2 {
+  background-color: #f07e26;
+  color: white;
+  padding: 6px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+    float:right;
+    margin-right: 2px;
+    margin-bottom: 1px;
+        font-family: Josefin Sans, sans-serif;
+
+}
+
+.bottons2:hover {
+  background-color: #e78f47;
+}
+
+label{
+    font-family: Josefin Sans, sans-serif;
 }

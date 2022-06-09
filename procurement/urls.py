@@ -25,6 +25,7 @@ urlpatterns = [
     path('success/', views.success, name='success'),
     path('inverters/',views.inverter, name='inverters'),
     path('pv_modules/',views.pv_module, name='pv_modules'),
+    path('pv_modules/modules_brand',views.brand_module_, name='pv_modules_brand'),
     path('construction/',views.constructions,name='constructions'),
     path('structures/',views.structure,name='structures'),
     path('ac_cables/',views.ac_cables,name='ac_cables'),

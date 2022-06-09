@@ -1,13 +1,13 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from .models import brand,vendor,inverters,construction,pv_modules,ac_cable,dc_cable,structures,inverter_acessories,others,order_inverter1,project,order_pv_modules,order_construction,order_inverter_acessories,order_structures,order_ac_cables,order_dc_cables,order_others,pv_modules_power,pv_module_brand
 from django.http import HttpResponseRedirect,HttpResponse
-from .forms import brand_creation,vendor_creation,inverter_creation,construction_creation,inverter_acessories_creation,structures_creation,ac_cable_creation,dc_cable_creation,others_creation,project_creation,number_form_inverter,number_form_pv_modules,number_form_construction,number_form_inverter_acessories,number_form_structures,number_form_ac_cables,number_form_dc_cables,number_form_others
+from .forms import brand_creation,vendor_creation,inverter_creation,construction_creation,inverter_acessories_creation,structures_creation,ac_cable_creation,dc_cable_creation,others_creation,project_creation,number_form_inverter,number_form_pv_modules,number_form_construction,number_form_inverter_acessories,number_form_structures,number_form_ac_cables,number_form_dc_cables,number_form_others,brand_pv_modules_creation
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.template.loader import get_template
-#from xhtml2pdf import pisa
+from xhtml2pdf import pisa
 from io import BytesIO
 import datetime
 
@@ -33,20 +33,19 @@ def logoutUser(request):
     logout(request)
     return redirect('/login')
 
-"""@login_required(login_url='/login')
-def updatemodule_(request ,pk):
-    modules=pv_modules.objects.get(id=pk)
-    form = pv_modules_creation(instance=modules)
+@login_required(login_url='/login')
+def brand_module_(request):
+    form = brand_pv_modules_creation()
     if request.method == 'POST':
-        modules_form=pv_modules_creation(data=request.POST,instance=modules)
+        modules_form=brand_pv_modules_creation(data=request.POST)
         if modules_form.is_valid():
             new_module=modules_form.save(commit=False)
             new_module.save()
-            return HttpResponseRedirect ('/procurement/pv_modules/',{'message':'Module Saved'})
-    guardar='Update Module'
+            return HttpResponseRedirect ('/pv_modules/',{'message':'Module Saved'})
+    guardar='Save Module Brand'
     context = {'form':form,'name_save':guardar}
-    return render(request, 'Procurement/procurement_part/creation.html',context)
-"""
+    return render(request, 'Procurement/procurement_part/pv_module_update.html',context)
+
 
 #Creation of the PV Modules
 """needed:
