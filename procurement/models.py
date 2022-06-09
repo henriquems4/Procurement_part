@@ -26,7 +26,7 @@ class pv_modules_power(models.Model):
         return str(self.power)
 
 class pv_modules(models.Model):
-    modules_id = models.CharField(max_length=50,default='03.PVM')
+    modules_id = models.CharField(max_length=50,default='03.PVM-01')
     brand = models.ForeignKey(pv_module_brand, on_delete=models.SET_NULL, related_name='marcas_modules',blank=True,null=True)
     product_name = models.CharField(max_length=50)
     power_range = models.ForeignKey(pv_modules_power,on_delete=models.SET_NULL, related_name='power_modules',blank=True,null=True)

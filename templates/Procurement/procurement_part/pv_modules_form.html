@@ -10,7 +10,7 @@
                     <label for="pv_module_id">PV Module ID:</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" id="pv_module_id" value="03.PVM" name="pv_module_id" readonly>
+                    <input type="text" id="pv_module_id" value="03.PVM-01" name="pv_module_id" readonly>
                 </div>
             </div>
             <div class="row">
@@ -122,10 +122,10 @@
                 vendor_name.textContent = 'Vendor Name: '+'{{ i.vendor_name }}';
                 vendor_contact.textContent = 'Vendor Contact: '+'{{ i.vendor_contact }}';
                 vendor_email.textContent = 'Vendor Email: '+'{{ i.vendor_email }}';
-                pv_module_id.value = '03.PVM'
-                pv_module_id.value = pv_module_id.value.slice(0,6)+'-{{ i.brand_id }}';
+                pv_module_id.value = '03.PVM-01'
+                pv_module_id.value = pv_module_id.value.slice(0,9)+'-{{ i.brand_id }}';
             }else if (this.value === ''){
-                pv_module_id.value = '03.PVM'
+                pv_module_id.value = '03.PVM-01'
                 brand_name.textContent = '';
                 brand_link.textContent = '';
                 vendor_name.textContent = '';
@@ -137,15 +137,15 @@
         input2.addEventListener('change', function () {
             {% for i in power_options %}
                 if(this.value === '{{ i.power_id }}'){
-                    if(pv_module_id.value === '03.PVM') {
+                    if(pv_module_id.value === '03.PVM-01') {
                         pv_module_id.value = pv_module_id.value + '-??-{{ i.power_id }}';
                     }
                     else {
-                        pv_module_id.value = pv_module_id.value.slice(0,9)+'-{{ i.power_id }}';
+                        pv_module_id.value = pv_module_id.value.slice(0,12)+'-{{ i.power_id }}';
                 }}
             {% endfor %}
         else if (this.value === ''){
-            pv_module_id.value = pv_module_id.value.slice(0,9)
+            pv_module_id.value = pv_module_id.value.slice(0,12)
         }});
     </script>
 
