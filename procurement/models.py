@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+
 class brand(models.Model):
     name = models.CharField(max_length=50)
     link = models.CharField(max_length=150)
@@ -9,6 +10,7 @@ class brand(models.Model):
     def __str__(self):
         return self.name
 
+#Brands specific for PV Modules
 class pv_module_brand(models.Model):
     brand_id = models.CharField(max_length=10)
     name = models.CharField(max_length=50)
@@ -19,12 +21,14 @@ class pv_module_brand(models.Model):
     def __str__(self):
         return self.name
 
+#Foreign key for the PV modules power
 class pv_modules_power(models.Model):
     power_id = models.CharField(max_length=50)
     power = models.IntegerField()
     def __str__(self):
         return str(self.power)
 
+#Pv Modules model
 class pv_modules(models.Model):
     modules_id = models.CharField(max_length=50,default='03.PVM-01')
     brand = models.ForeignKey(pv_module_brand, on_delete=models.SET_NULL, related_name='marcas_modules',blank=True,null=True)
