@@ -120,7 +120,7 @@ def updatebrand_(request ,pk):
         if brands_form.is_valid():
             new_brand=brands_form.save(commit=False)
             new_brand.save()
-            return HttpResponseRedirect ('/procurement/brands/',{'message':'Brand Saved'})
+            return HttpResponseRedirect ('/brands/',{'message':'Brand Saved'})
     guardar='Update Brand'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -190,7 +190,7 @@ def inverter_(request):
         if inverter_form.is_valid():
             new_inverter=inverter_form.save(commit=False)
             new_inverter.save()
-            return HttpResponseRedirect ('/procurement/inverters/',{'message':'Inverter Saved'})
+            return HttpResponseRedirect ('/inverters/',{'message':'Inverter Saved'})
     else:
         inverter_form=inverter_creation()
     return render(request, 'Procurement/procurement_part/creation.html',{'form':inverter_form,'name_save':name_save,'name_part':name_part})
@@ -206,7 +206,7 @@ def ac_cables_(request):
         if ac_cable_form.is_valid():
             new_ac_cables=ac_cable_form.save(commit=False)
             new_ac_cables.save()
-            return HttpResponseRedirect ('/procurement/ac_cables/',{'message':'Ac Cable Saved'})
+            return HttpResponseRedirect ('/ac_cables/',{'message':'Ac Cable Saved'})
     else:
         ac_cable_form=ac_cable_creation()
     return render(request, 'Procurement/procurement_part/creation.html',{'form':ac_cable_form,'name_save':name_save,'name_part':name_part})
@@ -222,7 +222,7 @@ def dc_cables_(request):
         if dc_cable_form.is_valid():
             new_dc_cables=dc_cable_form.save(commit=False)
             new_dc_cables.save()
-            return HttpResponseRedirect ('/procurement/dc_cables/',{'message':'Dc Cable Saved'})
+            return HttpResponseRedirect ('/dc_cables/',{'message':'Dc Cable Saved'})
     else:
         dc_cable_form=dc_cable_creation()
     return render(request, 'Procurement/procurement_part/creation.html',{'form':dc_cable_form,'name_save':name_save,'name_part':name_part})
@@ -238,7 +238,7 @@ def others_(request):
         if other_form.is_valid():
             new_others=other_form.save(commit=False)
             new_others.save()
-            return HttpResponseRedirect ('/procurement/others/',{'message':'Other Saved'})
+            return HttpResponseRedirect ('/others/',{'message':'Other Saved'})
     else:
         other_form=others_creation()
     return render(request, 'Procurement/procurement_part/creation.html',{'form':other_form,'name_save':name_save,'name_part':name_part})
@@ -254,7 +254,7 @@ def inverter_acessories_(request):
         if inverter_acessorie_form.is_valid():
             new_inverter_acessorie=inverter_acessorie_form.save(commit=False)
             new_inverter_acessorie.save()
-            return HttpResponseRedirect ('/procurement/inverter_acessories/',{'message':'Inverter Acessorie Saved'})
+            return HttpResponseRedirect ('/inverter_acessories/',{'message':'Inverter Acessorie Saved'})
     else:
         inverter_acessorie_form=inverter_acessories_creation()
     return render(request, 'Procurement/procurement_part/creation.html',{'form':inverter_acessorie_form,'name_save':name_save,'name_part':name_part})
@@ -269,7 +269,7 @@ def updateinverter_(request ,pk):
         if inverter_form.is_valid():
             new_inverter=inverter_form.save(commit=False)
             new_inverter.save()
-            return HttpResponseRedirect ('/procurement/inverters/',{'message':'Inverter Saved'})
+            return HttpResponseRedirect ('/inverters/',{'message':'Inverter Saved'})
     guardar='Update Inverter'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -284,7 +284,7 @@ def updateother_(request ,pk):
         if other_form.is_valid():
             new_other=other_form.save(commit=False)
             new_other.save()
-            return HttpResponseRedirect ('/procurement/others/',{'message':'Other Saved'})
+            return HttpResponseRedirect ('/others/',{'message':'Other Saved'})
     guardar='Update Other'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -299,7 +299,7 @@ def updateinverteracessorie_(request ,pk):
         if inverter_form.is_valid():
             new_inverter=inverter_form.save(commit=False)
             new_inverter.save()
-            return HttpResponseRedirect ('/procurement/inverter_acessories/',{'message':'Inverter Saved'})
+            return HttpResponseRedirect ('/inverter_acessories/',{'message':'Inverter Saved'})
     guardar='Update Inverter Acessorie'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -308,7 +308,7 @@ def updateinverteracessorie_(request ,pk):
 @login_required(login_url='/login')
 def deleteinverteracessorie(request,pk):
     inverter_acessorie = inverter_acessories.objects.get(id=pk)
-    next='/procurement/inverter_acessories/'
+    next='/inverter_acessories/'
     if request.method=="POST":
         inverter_acessorie.delete()
         return redirect(next)
@@ -319,7 +319,7 @@ def deleteinverteracessorie(request,pk):
 @login_required(login_url='/login')
 def deleteinverter(request,pk):
     inverter = inverters.objects.get(id=pk)
-    next = '/procurement/inverters/'
+    next = '/inverters/'
     if request.method=="POST":
         inverter.delete()
         return redirect(next)
@@ -330,7 +330,7 @@ def deleteinverter(request,pk):
 @login_required(login_url='/login')
 def deleteother (request,pk):
     other = others.objects.get(id=pk)
-    next = '/procurement/others/'
+    next = '/others/'
     if request.method=="POST":
         other.delete()
         return redirect(next)
@@ -343,7 +343,7 @@ def deleteother (request,pk):
 @login_required(login_url='/login')
 def deletemodule (request,pk):
     modules = pv_modules.objects.get(id=pk)
-    next='/procurement/pv_modules/'
+    next='/pv_modules/'
     if request.method=="POST":
         modules.delete()
         return redirect(next)
@@ -354,7 +354,7 @@ def deletemodule (request,pk):
 @login_required(login_url='/login')
 def deleteconstruction (request,pk):
     constructions = construction.objects.get(id=pk)
-    next = '/procurement/construction/'
+    next = '/construction/'
     if request.method=="POST":
         constructions.delete()
         return redirect(next)
@@ -365,7 +365,7 @@ def deleteconstruction (request,pk):
 @login_required(login_url='/login')
 def deleteac_cable (request,pk):
     ac_cables = ac_cable.objects.get(id=pk)
-    next = '/procurement/ac_cables/'
+    next = '/ac_cables/'
     if request.method=="POST":
         ac_cables.delete()
         return redirect(next)
@@ -376,7 +376,7 @@ def deleteac_cable (request,pk):
 @login_required(login_url='/login')
 def deletedc_cable (request,pk):
     dc_cables = dc_cable.objects.get(id=pk)
-    next = '/procurement/dc_cables/'
+    next = '/dc_cables/'
     if request.method=="POST":
         dc_cables.delete()
         return redirect(next)
@@ -392,7 +392,7 @@ def updateconstruction_(request ,pk):
         if construction_form.is_valid():
             new_construction=construction_form.save(commit=False)
             new_construction.save()
-            return HttpResponseRedirect ('/procurement/construction/',{'message':'Construction Saved'})
+            return HttpResponseRedirect ('/construction/',{'message':'Construction Saved'})
     guardar='Update Construction'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -407,7 +407,7 @@ def updatestructure_(request ,pk):
         if structure_form.is_valid():
             new_structure=structure_form.save(commit=False)
             new_structure.save()
-            return HttpResponseRedirect ('/procurement/structures/',{'message':'Structure Saved'})
+            return HttpResponseRedirect ('/structures/',{'message':'Structure Saved'})
     guardar='Update Structure'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -422,7 +422,7 @@ def update_ac_cable_(request ,pk):
         if ac_cable_form.is_valid():
             new_ac_cable=ac_cable_form.save(commit=False)
             new_ac_cable.save()
-            return HttpResponseRedirect ('/procurement/ac_cables/',{'message':'Ac Cable Saved'})
+            return HttpResponseRedirect ('//ac_cables/',{'message':'Ac Cable Saved'})
     guardar='Update Ac Cable'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -437,7 +437,7 @@ def update_dc_cable_(request ,pk):
         if dc_cable_form.is_valid():
             new_dc_cable=dc_cable_form.save(commit=False)
             new_dc_cable.save()
-            return HttpResponseRedirect ('/procurement/dc_cables/',{'message':'Dc Cable Saved'})
+            return HttpResponseRedirect ('/dc_cables/',{'message':'Dc Cable Saved'})
     guardar='Update Dc Cable'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -459,7 +459,7 @@ def inventory_list(request):
     return render(request, 'Procurement/procurement_part/inventory_procurement.html')
 
 
-@login_required(login_url='/procurement/login')
+@login_required(login_url='/login')
 def success(request):
     return render(request,'Procurement/procurement_part/success.html')
 
@@ -522,7 +522,7 @@ def constructions_(request):
         if construction_form.is_valid():
             new_construction=construction_form.save(commit=False)
             new_construction.save()
-            return HttpResponseRedirect ('/procurement/construction/',{'message':'Inverter Saved'})
+            return HttpResponseRedirect ('/construction/',{'message':'Inverter Saved'})
     else:
         construction_form=construction_creation()
     return render(request, 'Procurement/procurement_part/creation.html',{'form':construction_form,'name_save':name_save,'name_part':name_part})
@@ -538,7 +538,7 @@ def structures_(request):
         if structure_form.is_valid():
             new_structure=structure_form.save(commit=False)
             new_structure.save()
-            return HttpResponseRedirect ('/procurement/structures/',{'message':'Structure Saved'})
+            return HttpResponseRedirect ('/structures/',{'message':'Structure Saved'})
     else:
         structure_form=structures_creation()
     return render(request, 'Procurement/procurement_part/creation.html',{'form':structure_form,'name_save':name_save,'name_part':name_part})
@@ -558,7 +558,7 @@ def project_(request):
         if project_form.is_valid():
             new_project=project_form.save(commit=False)
             new_project.save()
-            return HttpResponseRedirect ('/procurement/',{'message':'Project Saved'})
+            return HttpResponseRedirect ('/',{'message':'Project Saved'})
     else:
         project_form=project_creation()
     return render(request, 'Procurement/procurement_part/creation.html',{'form':project_form,'name_save':name_save,'name_part':name_part})
@@ -572,7 +572,7 @@ def update_project(request ,pk):
         if projects_form.is_valid():
             new_project=projects_form.save(commit=False)
             new_project.save()
-            return HttpResponseRedirect ('/procurement/projects/',{'message':'Project Saved'})
+            return HttpResponseRedirect ('/projects/',{'message':'Project Saved'})
     guardar='Update Project'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -580,7 +580,7 @@ def update_project(request ,pk):
 @login_required(login_url='/login')
 def deleteproject(request,pk):
     projects = project.objects.get(id=pk)
-    next = '/procurement/projects/'
+    next = '/projects/'
     if request.method=="POST":
         projects.delete()
         return redirect(next)
@@ -859,7 +859,7 @@ def add_inverter(request,pk):
         projeto_teste=project.objects.get(id=valor)
         order_inverter=order_inverter1.objects.get(id=new_order)
         projeto_teste.order_inverter.add(order_inverter)
-        return redirect('/procurement/inverters')
+        return redirect('/inverters')
 
     return render(request, 'Procurement/procurement_part/add_inverter.html',{'projects':projetos})
 
@@ -889,7 +889,7 @@ def add_inverter_acessories(request,pk):
         projeto_teste=project.objects.get(id=valor)
         order_inverter=order_inverter_acessories.objects.get(id=new_order)
         projeto_teste.order_inverter_acessories.add(order_inverter)
-        return redirect('/procurement/inverter_acessories')
+        return redirect('/inverter_acessories')
 
     return render(request, 'Procurement/procurement_part/add_inverter.html',{'projects':projetos})
 
@@ -918,7 +918,7 @@ def add_pv_module(request,pk):
         projeto_teste=project.objects.get(id=valor)
         order_pv_module=order_pv_modules.objects.get(id=new_order)
         projeto_teste.order_pv_modules.add(order_pv_module)
-        return redirect('/procurement/pv_modules')
+        return redirect('/pv_modules')
     return render(request, 'Procurement/procurement_part/add_inverter.html',{'projects':projetos})
 
 
@@ -947,7 +947,7 @@ def add_construction(request,pk):
         projeto_teste=project.objects.get(id=valor)
         order_constructions=order_construction.objects.get(id=new_order)
         projeto_teste.order_construction.add(order_constructions)
-        return redirect('/procurement/construction')
+        return redirect('/construction')
     return render(request, 'Procurement/procurement_part/add_inverter.html',{'projects':projetos})
 
 
@@ -976,7 +976,7 @@ def add_structure(request,pk):
         projeto_teste=project.objects.get(id=valor)
         order_structure=order_structures.objects.get(id=new_order)
         projeto_teste.order_structures.add(order_structure)
-        return redirect('/procurement/structures')
+        return redirect('/structures')
     return render(request, 'Procurement/procurement_part/add_inverter.html',{'projects':projetos})
 
 
@@ -1005,7 +1005,7 @@ def add_ac_cable(request,pk):
         projeto_teste=project.objects.get(id=valor)
         order_ac_cable=order_ac_cables.objects.get(id=new_order)
         projeto_teste.order_ac_cables.add(order_ac_cable)
-        return redirect('/procurement/ac_cables')
+        return redirect('/ac_cables')
     return render(request, 'Procurement/procurement_part/add_inverter.html',{'projects':projetos})
 
 @login_required(login_url='/login')
@@ -1033,7 +1033,7 @@ def add_dc_cable(request,pk):
         projeto_teste=project.objects.get(id=valor)
         order_dc_cable=order_dc_cables.objects.get(id=new_order)
         projeto_teste.order_dc_cables.add(order_dc_cable)
-        return redirect('/procurement/dc_cables')
+        return redirect('/dc_cables')
     return render(request, 'Procurement/procurement_part/add_inverter.html',{'projects':projetos})
 
 @login_required(login_url='/login')
@@ -1061,7 +1061,7 @@ def add_others(request,pk):
         projeto_teste=project.objects.get(id=valor)
         order_other=order_others.objects.get(id=new_order)
         projeto_teste.order_others.add(order_other)
-        return redirect('/procurement/others')
+        return redirect('/others')
     return render(request, 'Procurement/procurement_part/add_inverter.html',{'projects':projetos})
 
 @login_required(login_url='/login')
@@ -1073,7 +1073,7 @@ def update_order_inverter(request,pk,py):
         if projects_form.is_valid():
             new_project=projects_form.save(commit=False)
             new_project.save()
-            return HttpResponseRedirect ('/procurement/projects/'+pk,{'message':'Project Saved'})
+            return HttpResponseRedirect ('/projects/'+pk,{'message':'Project Saved'})
     guardar='Update Order'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -1087,7 +1087,7 @@ def update_order_module(request,pk,py):
         if projects_form.is_valid():
             new_project=projects_form.save(commit=False)
             new_project.save()
-            return HttpResponseRedirect ('/procurement/projects/'+pk,{'message':'Project Saved'})
+            return HttpResponseRedirect ('/projects/'+pk,{'message':'Project Saved'})
     guardar='Update Order'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -1101,7 +1101,7 @@ def update_order_structure(request,pk,py):
         if projects_form.is_valid():
             new_project=projects_form.save(commit=False)
             new_project.save()
-            return HttpResponseRedirect ('/procurement/projects/'+pk,{'message':'Project Saved'})
+            return HttpResponseRedirect ('/projects/'+pk,{'message':'Project Saved'})
     guardar='Update Order'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -1115,7 +1115,7 @@ def update_order_construction(request,pk,py):
         if projects_form.is_valid():
             new_project=projects_form.save(commit=False)
             new_project.save()
-            return HttpResponseRedirect ('/procurement/projects/'+pk,{'message':'Project Saved'})
+            return HttpResponseRedirect ('/projects/'+pk,{'message':'Project Saved'})
     guardar='Update Order'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -1129,7 +1129,7 @@ def update_order_inv_acessorie(request,pk,py):
         if projects_form.is_valid():
             new_project=projects_form.save(commit=False)
             new_project.save()
-            return HttpResponseRedirect ('/procurement/projects/'+pk,{'message':'Project Saved'})
+            return HttpResponseRedirect ('/projects/'+pk,{'message':'Project Saved'})
     guardar='Update Order'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -1143,7 +1143,7 @@ def update_order_ac_cables(request,pk,py):
         if projects_form.is_valid():
             new_project=projects_form.save(commit=False)
             new_project.save()
-            return HttpResponseRedirect ('/procurement/projects/'+pk,{'message':'Project Saved'})
+            return HttpResponseRedirect ('/projects/'+pk,{'message':'Project Saved'})
     guardar='Update Order'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -1157,7 +1157,7 @@ def update_order_dc_cables(request,pk,py):
         if projects_form.is_valid():
             new_project=projects_form.save(commit=False)
             new_project.save()
-            return HttpResponseRedirect ('/procurement/projects/'+pk,{'message':'Project Saved'})
+            return HttpResponseRedirect ('/projects/'+pk,{'message':'Project Saved'})
     guardar='Update Order'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -1171,7 +1171,7 @@ def update_order_other(request,pk,py):
         if projects_form.is_valid():
             new_project=projects_form.save(commit=False)
             new_project.save()
-            return HttpResponseRedirect ('/procurement/projects/'+pk,{'message':'Project Saved'})
+            return HttpResponseRedirect ('/projects/'+pk,{'message':'Project Saved'})
     guardar='Update Order'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
@@ -1179,7 +1179,7 @@ def update_order_other(request,pk,py):
 @login_required(login_url='/login')
 def delete_order_inverter (request,pk,py):
     order_inverter = order_inverter1.objects.get(id=py)
-    next = '/procurement/projects/'+pk
+    next = '/projects/'+pk
     if request.method=="POST":
         order_inverter.delete()
         return redirect(next)
@@ -1189,7 +1189,7 @@ def delete_order_inverter (request,pk,py):
 @login_required(login_url='/login')
 def delete_order_pv_module (request,pk,py):
     order_module = order_pv_modules.objects.get(id=py)
-    next = '/procurement/projects/'+pk
+    next = '/projects/'+pk
     if request.method=="POST":
         order_module.delete()
         return redirect(next)
@@ -1199,7 +1199,7 @@ def delete_order_pv_module (request,pk,py):
 @login_required(login_url='/login')
 def delete_order_construction (request,pk,py):
     order_constructions = order_construction.objects.get(id=py)
-    next = '/procurement/projects/'+pk
+    next = '/projects/'+pk
     if request.method=="POST":
         order_constructions.delete()
         return redirect(next)
@@ -1209,7 +1209,7 @@ def delete_order_construction (request,pk,py):
 @login_required(login_url='/login')
 def delete_order_structures (request,pk,py):
     order_structure = order_structures.objects.get(id=py)
-    next = '/procurement/projects/'+pk
+    next = '/projects/'+pk
     if request.method=="POST":
         order_structure.delete()
         return redirect(next)
@@ -1219,7 +1219,7 @@ def delete_order_structures (request,pk,py):
 @login_required(login_url='/login')
 def delete_order_inv_acessorie (request,pk,py):
     order_inverter_acessorie = order_inverter_acessories.objects.get(id=py)
-    next = '/procurement/projects/'+pk
+    next = '/projects/'+pk
     if request.method=="POST":
         order_inverter_acessorie.delete()
         return redirect(next)
@@ -1229,7 +1229,7 @@ def delete_order_inv_acessorie (request,pk,py):
 @login_required(login_url='/login')
 def delete_order_ac_cables (request,pk,py):
     order_ac_cable = order_ac_cables.objects.get(id=py)
-    next = '/procurement/projects/'+pk
+    next = '/projects/'+pk
     if request.method=="POST":
         order_ac_cable.delete()
         return redirect(next)
@@ -1249,7 +1249,7 @@ def delete_order_dc_cables (request,pk,py):
 @login_required(login_url='/login')
 def delete_order_other (request,pk,py):
     order_other = order_others.objects.get(id=py)
-    next = '/procurement/projects/'+pk
+    next = '/projects/'+pk
     if request.method=="POST":
         order_other.delete()
         return redirect(next)
