@@ -10,6 +10,8 @@ class brand(models.Model):
     def __str__(self):
         return self.name
 
+"""*****PV Modules Part******"""
+
 #Brands specific for PV Modules
 class pv_module_brand(models.Model):
     brand_id = models.CharField(max_length=10)
@@ -42,6 +44,41 @@ class pv_modules(models.Model):
     def __str__(self):
         return self.modules_id
 
+"""*****Inverters Part******"""
+
+
+#Brands specific for Inverters
+class inverters_brand(models.Model):
+    brand_id = models.CharField(max_length=10)
+    name = models.CharField(max_length=50)
+    link = models.CharField(max_length=150)
+    vendor_name = models.CharField(max_length=100)
+    vendor_contact = models.CharField(max_length=100)
+    vendor_email = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
+
+
+#Foreign key for the Inverters power
+class inverters_power(models.Model):
+    power_id = models.CharField(max_length=50)
+    power = models.IntegerField()
+    def __str__(self):
+        return str(self.power)
+
+#Inverters model
+class inverters(models.Model):
+    inverters_id = models.CharField(max_length=50,default='04.INV-01')
+    brand = models.ForeignKey(inverters_brand, on_delete=models.SET_NULL, related_name='marcas_modules',blank=True,null=True)
+    product_name = models.CharField(max_length=50)
+    power = models.ForeignKey(inverters_power,on_delete=models.SET_NULL, related_name='power_modules',blank=True,null=True)
+    price_EXW = models.FloatField(max_length=30)
+    price_CIF = models.FloatField(max_length=30)
+    price_DDP = models.FloatField(max_length=30)
+    price_FOB = models.FloatField(max_length=30)
+    payment_conditions = models.TextField()
+    def __str__(self):
+        return self.inverters_id
 
 
 class vendor(models.Model):
@@ -53,14 +90,14 @@ class vendor(models.Model):
         return self.name
 
 
-class inverters(models.Model):
+"""class inverters(models.Model):
     id = models.CharField(primary_key=True, max_length=50)
     brand = models.ForeignKey(brand, on_delete=models.CASCADE, related_name='marcas_inverters')
     product_name = models.CharField(max_length=50)
     power = models.FloatField()
     vendor = models.ForeignKey(vendor,on_delete=models.CASCADE, related_name='vendedores_inverters')
     price = models.FloatField(max_length=30)
-    inventory = models.FloatField(max_length=30)
+    inventory = models.FloatField(max_length=30)"""
 
 
 

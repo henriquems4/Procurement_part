@@ -1,13 +1,17 @@
 from django.contrib import admin
-from .models import vendor,brand,inverters,pv_modules,construction,structures,dc_cable,ac_cable,inverter_acessories,project,order_inverter1,order_structures,order_construction,order_others,order_pv_modules,order_inverter_acessories,order_ac_cables,order_dc_cables,pv_module_brand,pv_modules_power
+from .models import vendor,brand,inverters,pv_modules,construction,structures,dc_cable,ac_cable,inverter_acessories,project,order_inverter1,order_structures,order_construction,order_others,order_pv_modules,order_inverter_acessories,order_ac_cables,order_dc_cables,pv_module_brand,pv_modules_power,inverters_brand,inverters_power
 
 @admin.register(inverters)
 class invertersadmin(admin.ModelAdmin):
-    list_display = ('id','product_name','brand','vendor','price')
-    list_filter = ('brand',)
-    search_fields = ('product_name','brand','power')
-    ordering = ('power',)
+    pass
 
+@admin.register(inverters_brand)
+class inverter_brandadmin(admin.ModelAdmin):
+    pass
+
+@admin.register(inverters_power)
+class inverter_poweradmin(admin.ModelAdmin):
+    pass
 
 @admin.register(brand)
 class invertersadmin(admin.ModelAdmin):

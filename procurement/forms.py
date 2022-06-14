@@ -1,4 +1,4 @@
-from .models import brand,vendor,inverters,construction,pv_modules,ac_cable,dc_cable,structures,inverter_acessories,others,project,order_inverter1,order_pv_modules,order_construction,order_inverter_acessories,order_structures,order_ac_cables,order_dc_cables,order_others,pv_module_brand
+from .models import brand,vendor,inverters,construction,pv_modules,ac_cable,dc_cable,structures,inverter_acessories,others,project,order_inverter1,order_pv_modules,order_construction,order_inverter_acessories,order_structures,order_ac_cables,order_dc_cables,order_others,pv_module_brand,inverters_brand
 from django import forms
 from django import template
 
@@ -25,29 +25,19 @@ class vendor_creation(forms.ModelForm):
         }
     field_order = ['name','contact','email']
 
-class inverter_creation(forms.ModelForm):
-    class Meta:
-        model = inverters
-        fields = {'id','brand','product_name','power','vendor','price','inventory'}
-        widgets = {
-            'id': forms.TextInput(attrs={'class': 'input1'}),
-            'product_name': forms.TextInput(attrs={'class': 'input1'}),
-            'power': forms.TextInput(attrs={'class': 'input1'}),
-            'vendor': forms.Select(attrs={'class': 'bootstrap-select'}),
-            'brand': forms.Select(attrs={'class': 'bootstrap-select'}),
-            'price': forms.TextInput(attrs={'class': 'input1'}),
-            'inventory': forms.TextInput(attrs={'class': 'input1'}),
-        }
-        labels = {
-            'power': 'Power (kW)',
-            'price':'Price (€/Wp)',
-            'inventory':'Stock',
-        }
-    field_order = ['id','product_name','power','vendor','brand','price','inventory']
-
 class brand_pv_modules_creation(forms.ModelForm):
     class Meta:
         model = pv_module_brand
+        fields = {'brand_id','name','link','vendor_name','vendor_contact','vendor_email'}
+        labels = {
+            'brand_id': 'Brand ID (xx):',
+        }
+    field_order = ['brand_id','name','link','vendor_name','vendor_contact','vendor_email']
+
+
+class brand_inverters_creation(forms.ModelForm):
+    class Meta:
+        model = inverters_brand
         fields = {'brand_id','name','link','vendor_name','vendor_contact','vendor_email'}
         labels = {
             'brand_id': 'Brand ID (xx):',

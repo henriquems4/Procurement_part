@@ -1,0 +1,156 @@
+
+{% extends "Procurement/base.html" %}
+{% block title %}{{ name_save }}{% endblock %}
+{% block content %}
+    <div class="container">
+    <div id="information_form">
+        <form method="post" action="{% url 'O_and_M:inverter_creation' %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-25">
+                    <label for="pv_module_id">Inverter ID:</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="inverter_id" value="04.INV-01" name="inverter_id" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="brand">Choose a brand:</label>
+                </div>
+                <div class="col-75">
+                    <select id="brand" name="brand" class="selexct" required>
+                    <option value="">---</option>
+                    {% for i in brand_options %}
+                        <option value="{{ i.brand_id }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select>
+                </div>
+            </div>
+        <div class="row">
+                <div class="col-25">
+                <label for="power">Choose the Power:</label>
+                </div>
+                <div class="col-75">
+                <select id="power" name="power" class="selexct" required>
+                    <option value="">---</option>
+                    {% for i in power_options %}
+                        <option value="{{ i.power_id }}">{{ i.power }}</option>
+                    {% endfor %}
+                </select>
+                </div>
+            </div>
+        <div class="row">
+                <div class="col-25">
+                <label for="product_name">Product name: </label>
+                    </div>
+                <div class="col-75">
+                <input id="product_name" type="text" name="product_name" maxlength="100" required>
+                   </div>
+            </div>
+        <div class="row">
+                <div class="col-25">
+                <label for="price_EXW">Price(€/Wp) EXW: </label>
+                     </div>
+                <div class="col-75">
+                <input id="price_EXW" type="text" name="price_EXW" maxlength="100" required>
+                     </div>
+            </div>
+        <div class="row">
+                <div class="col-25">
+                <label for="price_CIF">Price(€/Wp) CIF: </label>
+                    </div>
+                <div class="col-75">
+                <input id="price_CIF" type="text" name="price_CIF" maxlength="100" required>
+                    </div>
+            </div>
+        <div class="row">
+                <div class="col-25">
+                <label for="price_DDP">Price(€/Wp) DDP: </label>
+                    </div>
+                <div class="col-75">
+                <input id="price_DDP" type="text" name="price_DDP" maxlength="100" required>
+                    </div>
+            </div>
+        <div class="row">
+                <div class="col-25">
+                <label for="price_FOB">Price(€/Wp) FOB: </label>
+                    </div>
+                <div class="col-75">
+                <input id="price_FOB" type="text" name="price_FOB" maxlength="100" required>
+                    </div>
+            </div>
+        <div class="row">
+                <div class="col-25">
+                <label for="payment_conditions">Payment Conditions: </label>
+                    </div>
+                <div class="col-75">
+                <input id="payment_conditions" type="text" name="payment_conditions" maxlength="100" required>
+                    </div>
+            </div>
+            <input type="submit" value="{{ name_save }}" class="part_creation3">
+        </form>
+    </div>
+    <div id="information">
+    <p id="Nome_Marca"></p>
+    <p id="link_Marca"></p>
+    <p id="nome_vendedor"></p>
+    <p id="Contacto_vendedor"></p>
+    <p id="Email_vendedor"></p>
+    </div>
+    </div>
+    {% if not created %}
+    {% else %}
+        <p id="mensagem_pos">{{ done }}</p>
+    {% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+
+        let input = document.querySelector('#brand');
+        let brand_name = document.querySelector('#Nome_Marca');
+        let brand_link = document.querySelector('#link_Marca');
+        let vendor_name = document.querySelector('#nome_vendedor');
+        let vendor_contact = document.querySelector('#Contacto_vendedor');
+        let vendor_email = document.querySelector('#Email_vendedor');
+        let pv_module_id = document.querySelector('#inverter_id');
+        let input2 = document.querySelector('#power');
+        input.addEventListener('change', function () {
+            {% for i in brand_options %}
+            if (this.value === '{{ i.brand_id }}'){
+                brand_name.textContent = 'Name: '+'{{ i.name }}';
+                brand_link.textContent = 'Link: '+'{{ i.link }}';
+                vendor_name.textContent = 'Vendor Name: '+'{{ i.vendor_name }}';
+                vendor_contact.textContent = 'Vendor Contact: '+'{{ i.vendor_contact }}';
+                vendor_email.textContent = 'Vendor Email: '+'{{ i.vendor_email }}';
+                pv_module_id.value = '04.INV-01'
+                pv_module_id.value = pv_module_id.value.slice(0,9)+'-{{ i.brand_id }}';
+            }else if (this.value === ''){
+                pv_module_id.value = '04.INV-01'
+                brand_name.textContent = '';
+                brand_link.textContent = '';
+                vendor_name.textContent = '';
+                vendor_contact.textContent = '';
+                vendor_email.textContent = '';
+            }
+            {% endfor %}
+        });
+        input2.addEventListener('change', function () {
+            {% for i in power_options %}
+                if(this.value === '{{ i.power_id }}'){
+                    if(pv_module_id.value === '04.INV-01') {
+                        pv_module_id.value = pv_module_id.value + '-??-{{ i.power_id }}';
+                    }
+                    else {
+                        pv_module_id.value = pv_module_id.value.slice(0,12)+'-{{ i.power_id }}';
+                }}
+            {% endfor %}
+        else if (this.value === ''){
+            pv_module_id.value = pv_module_id.value.slice(0,12)
+        }});
+    </script>
+
+
+
+</form>
+{% endblock %}

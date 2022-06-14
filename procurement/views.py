@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from .models import brand,vendor,inverters,construction,pv_modules,ac_cable,dc_cable,structures,inverter_acessories,others,order_inverter1,project,order_pv_modules,order_construction,order_inverter_acessories,order_structures,order_ac_cables,order_dc_cables,order_others,pv_modules_power,pv_module_brand
+from .models import brand,vendor,inverters,construction,pv_modules,ac_cable,dc_cable,structures,inverter_acessories,others,order_inverter1,project,order_pv_modules,order_construction,order_inverter_acessories,order_structures,order_ac_cables,order_dc_cables,order_others,pv_modules_power,pv_module_brand,inverters_brand,inverters_power
 from django.http import HttpResponseRedirect,HttpResponse
-from .forms import brand_creation,vendor_creation,inverter_creation,construction_creation,inverter_acessories_creation,structures_creation,ac_cable_creation,dc_cable_creation,others_creation,project_creation,number_form_inverter,number_form_pv_modules,number_form_construction,number_form_inverter_acessories,number_form_structures,number_form_ac_cables,number_form_dc_cables,number_form_others,brand_pv_modules_creation
+from .forms import brand_creation,vendor_creation,construction_creation,inverter_acessories_creation,structures_creation,ac_cable_creation,dc_cable_creation,others_creation,project_creation,number_form_inverter,number_form_pv_modules,number_form_construction,number_form_inverter_acessories,number_form_structures,number_form_ac_cables,number_form_dc_cables,number_form_others,brand_pv_modules_creation,brand_inverters_creation
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -88,6 +88,57 @@ def pv_modules_(request):
         #pv_module_form=pv_modules_creation()
     return render(request, 'Procurement/procurement_part/pv_modules_form.html',{'name_save':name_save,'name_part':name_part,'brand_options':brand_options,'power_options':power_options,'created':created,'done':done})
 
+
+@login_required(login_url='/login')
+def brand_inverter_(request):
+    form = brand_inverters_creation()
+    if request.method == 'POST':
+        inverters_form=brand_inverters_creation(data=request.POST)
+        if inverters_form.is_valid():
+            new_inverter=inverters_form.save(commit=False)
+            new_inverter.save()
+            return HttpResponseRedirect ('/inverters/',{'message':'Inverter Saved'})
+    guardar='Save Inverter Brand'
+    context = {'form':form,'name_save':guardar}
+    return render(request, 'Procurement/procurement_part/pv_module_update.html',context)
+
+
+
+
+@login_required(login_url='/login')
+def inverter_(request):
+    new_inverter=None
+    name_part = 'Inverter Creation'
+    name_save = 'Save Inverter'
+    brand_options = inverters_brand.objects.all()
+    power_options = inverters_power.objects.all()
+    created = False
+    done = ''
+    if request.method=='POST':
+        try:
+            inverters_id = request.POST.get('inverter_id')
+            brand = request.POST.get('brand')
+            power_range = request.POST.get('power')
+            product_name = request.POST.get('product_name')
+            price_EXW = request.POST.get('price_EXW')
+            price_CIF = request.POST.get('price_CIF')
+            price_DDP = request.POST.get('price_DDP')
+            price_FOB = request.POST.get('price_FOB')
+            payment_conditions = request.POST.get('payment_conditions')
+            marca = inverters_brand.objects.get(brand_id=brand)
+            potencia = inverters_power.objects.get(power_id=power_range)
+            inverters.objects.create(inverters_id=inverters_id, brand=marca, product_name=product_name,
+                                      power=potencia, price_EXW=float(price_EXW), price_CIF=float(price_CIF),
+                                      price_DDP=float(price_DDP), price_FOB=float(price_FOB),
+                                      payment_conditions=payment_conditions)
+            created = True
+            done = 'Inverter ' + inverters_id + ' Saved with Sucess'
+        except:
+            created = True
+            done = 'Error: Values were wrong! Try Again!'
+    return render(request, 'Procurement/procurement_part/inverters_form.html',
+                  {'name_save': name_save, 'name_part': name_part, 'brand_options': brand_options,
+                   'power_options': power_options, 'created': created, 'done': done})
 
 
 @login_required(login_url='/login')
@@ -180,20 +231,6 @@ def deletevendor(request,pk):
     context = {'item':vendors,'next':next}
     return render(request,'Procurement/procurement_part/delete.html',context)
 
-@login_required(login_url='/login')
-def inverter_(request):
-    new_inverter= None
-    name_part = 'Inverter Creation'
-    name_save = 'Save Inverter'
-    if request.method == 'POST':
-        inverter_form=inverter_creation(data=request.POST)
-        if inverter_form.is_valid():
-            new_inverter=inverter_form.save(commit=False)
-            new_inverter.save()
-            return HttpResponseRedirect ('/inverters/',{'message':'Inverter Saved'})
-    else:
-        inverter_form=inverter_creation()
-    return render(request, 'Procurement/procurement_part/creation.html',{'form':inverter_form,'name_save':name_save,'name_part':name_part})
 
 
 @login_required(login_url='/login')
@@ -260,7 +297,7 @@ def inverter_acessories_(request):
     return render(request, 'Procurement/procurement_part/creation.html',{'form':inverter_acessorie_form,'name_save':name_save,'name_part':name_part})
 
 
-@login_required(login_url='/login')
+"""@login_required(login_url='/login')
 def updateinverter_(request ,pk):
     inverter=inverters.objects.get(id=pk)
     form = inverter_creation(instance=inverter)
@@ -272,7 +309,7 @@ def updateinverter_(request ,pk):
             return HttpResponseRedirect ('/inverters/',{'message':'Inverter Saved'})
     guardar='Update Inverter'
     context = {'form':form,'name_save':guardar}
-    return render(request, 'Procurement/procurement_part/creation.html',context)
+    return render(request, 'Procurement/procurement_part/creation.html',context)"""
 
 
 @login_required(login_url='/login')
