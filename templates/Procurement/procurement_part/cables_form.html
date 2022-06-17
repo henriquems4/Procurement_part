@@ -1,0 +1,170 @@
+{% extends "Procurement/base.html" %}
+{% block title %}{{ name_save }}{% endblock %}
+{% block content %}
+    <div class="container">
+    <div id="information_form">
+        <form method="post" action="{% url 'O_and_M:inv_acessories_creation' %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-25">
+                    <label for="cable_id">Cable ID:</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="cable_id" value="06.CAB-01" name="cable_id" readonly>
+                </div>
+            </div>
+        <div class="row">
+                <div class="col-25">
+                <label for="type">Choose the Type:</label>
+                </div>
+                <div class="col-75">
+                <select id="type" name="type" class="selexct" required>
+                    <option value="">---</option>
+                    {% for i in type_options %}
+                        <option value="{{ i.type_id }}">{{ i.type }}</option>
+                    {% endfor %}
+                </select>
+                </div>
+            </div>
+        <div class="row">
+                <div class="col-25">
+                <label for="information">Choose the cable:</label>
+                </div>
+                <div class="col-75">
+                <select id="information" name="information" class="selexct" required>
+                    <option value="">---</option>
+                </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="brand">Choose a brand:</label>
+                </div>
+                <div class="col-75">
+                    <select id="brand" name="brand" class="selexct" required>
+                    <option value="">---</option>
+                    {% for i in brand_options %}
+                        <option value="{{ i.brand_id }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select>
+                </div>
+            </div>
+        <div class="row">
+                <div class="col-25">
+                <label for="product_name">Product name: </label>
+                    </div>
+                <div class="col-75">
+                <input id="product_name" type="text" name="product_name" maxlength="100" required>
+                   </div>
+            </div>
+        <div class="row">
+                <div class="col-25">
+                <label for="price">Price(€): </label>
+                     </div>
+                <div class="col-75">
+                <input id="price" type="text" name="price" maxlength="100" required>
+                     </div>
+            </div>
+        <div class="row">
+                <div class="col-25">
+                <label for="payment_conditions">Payment Conditions: </label>
+                    </div>
+                <div class="col-75">
+                <input id="payment_conditions" type="text" name="payment_conditions" maxlength="100" required>
+                    </div>
+            </div>
+            <input type="submit" value="{{ name_save }}" class="part_creation3">
+        </form>
+    </div>
+    <div id="information">
+    <p id="Nome_Marca"></p>
+    <p id="link_Marca"></p>
+    <p id="nome_vendedor"></p>
+    <p id="Contacto_vendedor"></p>
+    <p id="Email_vendedor"></p>
+    </div>
+    </div>
+    {% if not created %}
+    {% else %}
+        <p id="mensagem_pos">{{ done }}</p>
+    {% endif %}
+
+    <script>
+
+        let input = document.querySelector('#brand');
+        let brand_name = document.querySelector('#Nome_Marca');
+        let brand_link = document.querySelector('#link_Marca');
+        let vendor_name = document.querySelector('#nome_vendedor');
+        let vendor_contact = document.querySelector('#Contacto_vendedor');
+        let vendor_email = document.querySelector('#Email_vendedor');
+        let pv_module_id = document.querySelector('#cable_id');
+        let input2 = document.querySelector('#type');
+        let select = document.getElementById('information');
+        input.addEventListener('change', function () {
+            {% for i in brand_options %}
+            if (this.value === '{{ i.brand_id }}'){
+                brand_name.textContent = 'Name: '+'{{ i.name }}';
+                brand_link.textContent = 'Link: '+'{{ i.link }}';
+                vendor_name.textContent = 'Vendor Name: '+'{{ i.vendor_name }}';
+                vendor_contact.textContent = 'Vendor Contact: '+'{{ i.vendor_contact }}';
+                vendor_email.textContent = 'Vendor Email: '+'{{ i.vendor_email }}';
+                //pv_module_id.value = '05.ACC-01'
+                //pv_module_id.value = pv_module_id.value.slice(0,9)+'-{{ i.brand_id }}';
+            }else if (this.value === ''){
+                //pv_module_id.value = '05.ACC-01'
+                brand_name.textContent = '';
+                brand_link.textContent = '';
+                vendor_name.textContent = '';
+                vendor_contact.textContent = '';
+                vendor_email.textContent = '';
+            }
+            {% endfor %}
+        });
+        input2.addEventListener('change', function () {
+            {% for i in type_options %}
+                if(this.value === '{{ i.type_id }}'){
+                    pv_module_id.value = pv_module_id.value.slice(0,9) + '-{{ i.type_id }}';
+                    var options = document.querySelectorAll('#information option');
+                    options.forEach(o => o.remove());
+                    var opt1 = document.createElement('option');
+                    opt1.value = '';
+                    opt1.innerHTML = '---';
+                    select.appendChild(opt1);
+                    {% for j in information %}
+                        console.log('{{ i.type }}');
+                        console.log('{{ j.type_cable }}');
+                        if ('{{ i.type }}' === '{{ j.type_cable }}'){
+                             var opt = document.createElement('option');
+                            opt.value = '{{ j.information_id }}';
+                            opt.innerHTML = '{{ j.information }}';
+                            select.appendChild(opt);
+                        }
+                    {% endfor %}
+
+                }
+                else if (this.value===''){
+                    pv_module_id.value = '06.CAB-01';
+                    var options = document.querySelectorAll('#information option');
+                    options.forEach(o => o.remove());
+                    var opt1 = document.createElement('option');
+                    opt1.value = '';
+                    opt1.innerHTML = '---';
+                    select.appendChild(opt1);
+                }
+            {% endfor %}});
+        select.addEventListener('change', function(){
+            {% for i in information %}
+                if (this.value === '{{ i.information_id }}'){
+                    pv_module_id.value = pv_module_id.value.slice(0,12) + '-{{ i.information_id }}';
+                }
+                else if (this.value===''){
+                    pv_module_id.value = pv_module_id.value.slice(0,12);
+                }
+            {% endfor %}
+        });
+    </script>
+
+
+
+</form>
+{% endblock %}

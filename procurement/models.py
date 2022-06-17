@@ -3,12 +3,18 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
+
+"""*****Total Brands*****"""
 class brand(models.Model):
+    brand_id = models.CharField(max_length=10)
     name = models.CharField(max_length=50)
     link = models.CharField(max_length=150)
-
+    vendor_name = models.CharField(max_length=100)
+    vendor_contact = models.CharField(max_length=100)
+    vendor_email = models.CharField(max_length=100)
     def __str__(self):
         return self.name
+
 
 """*****PV Modules Part******"""
 
@@ -46,7 +52,6 @@ class pv_modules(models.Model):
 
 """*****Inverters Part******"""
 
-
 #Brands specific for Inverters
 class inverters_brand(models.Model):
     brand_id = models.CharField(max_length=10)
@@ -80,6 +85,69 @@ class inverters(models.Model):
     def __str__(self):
         return self.inverters_id
 
+"""*****Inverter Acessories Part*****"""
+
+class brand_acessories(models.Model):
+    brand_id = models.CharField(max_length=10)
+    name = models.CharField(max_length=50)
+    link = models.CharField(max_length=150)
+    vendor_name = models.CharField(max_length=100)
+    vendor_contact = models.CharField(max_length=100)
+    vendor_email = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
+
+class inv_acessorie_type(models.Model):
+    type_id = models.CharField(max_length=50)
+    type = models.CharField(max_length=100)
+    def __str__(self):
+        return str(self.type)
+
+class inverter_acessories(models.Model):
+    acessorie_id = models.CharField(max_length=50, default='05.ACC-01')
+    brand = models.ForeignKey(brand_acessories,on_delete=models.SET_NULL,blank=True,null=True, related_name='marcas_acessories')
+    product_name = models.CharField(max_length=50)
+    type = models.ForeignKey(inv_acessorie_type,on_delete=models.SET_NULL,blank=True,null=True, related_name='marcas_acessories')
+    price = models.FloatField(max_length=30)
+    payment_conditions = models.TextField()
+    def __str__(self):
+        return self.product_name
+
+"""*****Cables Part*****"""
+
+class brand_cables(models.Model):
+    brand_id = models.CharField(max_length=10)
+    name = models.CharField(max_length=50)
+    link = models.CharField(max_length=150)
+    vendor_name = models.CharField(max_length=100)
+    vendor_contact = models.CharField(max_length=100)
+    vendor_email = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
+
+class type_cable(models.Model):
+    type_id = models.CharField(max_length=50)
+    type = models.CharField(max_length=100)
+    def __str__(self):
+        return self.type
+
+class cable_information(models.Model):
+    information_id = models.CharField(max_length=20)
+    information = models.CharField(max_length=80)
+    type_cable = models.ForeignKey(type_cable,on_delete=models.SET_NULL,blank=True,null=True,related_name='tipo_cabo')
+
+class cables(models.Model):
+    cables_id = models.CharField(max_length=50, default='06.CAB-01')
+    type = models.ForeignKey(type_cable,on_delete=models.SET_NULL,blank=True,null=True, related_name='tipo_cables')
+    information = models.ForeignKey(cable_information, on_delete=models.SET_NULL, blank=True, null=True, related_name='information_cables')
+    brand = models.ForeignKey(brand_cables,on_delete=models.SET_NULL,blank=True,null=True, related_name='marcas_cables')
+    product_name = models.CharField(max_length=50)
+    price = models.CharField(max_length=50)
+    payment_conditions = models.TextField()
+    def __str__(self):
+        return self.product_name
+
+
 
 class vendor(models.Model):
     name = models.CharField(max_length=50)
@@ -111,16 +179,6 @@ class construction(models.Model):
     def __str__(self):
         return self.product_name
 
-class inverter_acessories(models.Model):
-    id = models.CharField(primary_key=True,max_length=50)
-    brand = models.ForeignKey(brand, on_delete=models.CASCADE, related_name='marcas_acessories')
-    product_name = models.CharField(max_length=50)
-    type = models.CharField(max_length=50)
-    vendor = models.ForeignKey(vendor, on_delete=models.CASCADE, related_name='vendedores_acessories')
-    price = models.FloatField(max_length=30)
-    inventory = models.FloatField(max_length=30)
-    def __str__(self):
-        return self.product_name
 
 class structures(models.Model):
     id = models.CharField(primary_key=True,max_length=50)

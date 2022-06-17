@@ -1,10 +1,13 @@
 {% extends "Procurement/base.html" %}
-{% block title %}AC Cables{% endblock %}
+{% block title %}Cables{% endblock %}
 {% block content %}
     <div class="top_creation">
-        <h1>AC Cables</h1> <a href="/ac_cables/create_ac_cables" class="part_creation">Create AC Cables</a>
+        <h1 class="tittle_component">Cables</h1>
+        <a href="/cables/cable_creation" class="bottons2">Create Cable</a>
+        <a href="{% url 'O_and_M:acessories_brand' %}" class="bottons2">Create Brand</a>
     </div>
-<div class="table">
+     <br></br>
+<div class="table123">
 <table id="myTable2">
     <tr>
         <th onclick="sortTable(0)">Id</th>
@@ -17,7 +20,7 @@
         <th>Update</th>
         <th>Delete</th>
     </tr>
-    {% for i in ac_cables %}
+    {% for i in cables %}
     <tr>
         <td><a href="{% url 'O_and_M:ac_cable_detail' i.id %}">{{ i.id }}</a></td>
         <td>{{ i.product_name }}</td>

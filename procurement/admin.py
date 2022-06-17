@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import vendor,brand,inverters,pv_modules,construction,structures,dc_cable,ac_cable,inverter_acessories,project,order_inverter1,order_structures,order_construction,order_others,order_pv_modules,order_inverter_acessories,order_ac_cables,order_dc_cables,pv_module_brand,pv_modules_power,inverters_brand,inverters_power
+from .models import vendor,brand,inverters,pv_modules,construction,structures,inverter_acessories,project,order_inverter1,order_structures,order_construction,order_others,order_pv_modules,order_inverter_acessories,\
+    order_ac_cables,order_dc_cables,pv_module_brand,pv_modules_power,inverters_brand,inverters_power,inv_acessorie_type,brand_acessories,cables,cable_information,brand_cables,type_cable
+
+@admin.register(brand)
+class invertersadmin(admin.ModelAdmin):
+    pass
+
 
 @admin.register(inverters)
 class invertersadmin(admin.ModelAdmin):
@@ -13,9 +19,6 @@ class inverter_brandadmin(admin.ModelAdmin):
 class inverter_poweradmin(admin.ModelAdmin):
     pass
 
-@admin.register(brand)
-class invertersadmin(admin.ModelAdmin):
-    pass
 
 @admin.register(pv_module_brand)
 class pv_modules_brandadmin(admin.ModelAdmin):
@@ -30,14 +33,46 @@ class pv_modules_power_brandadmin(admin.ModelAdmin):
 class invertersadmin(admin.ModelAdmin):
     pass
 
+@admin.register(inv_acessorie_type)
+class inv_acessories_type(admin.ModelAdmin):
+    pass
+
+@admin.register(brand_acessories)
+class inv_acessories_brand(admin.ModelAdmin):
+    pass
+
+@admin.register(inverter_acessories)
+class inv_acessories(admin.ModelAdmin):
+    pass
+
+@admin.register(cables)
+class cables(admin.ModelAdmin):
+    pass
+
+@admin.register(cable_information)
+class cable_information(admin.ModelAdmin):
+    pass
+
+@admin.register(type_cable)
+class cable_type(admin.ModelAdmin):
+    pass
+
+@admin.register(brand_cables)
+class cable_brand(admin.ModelAdmin):
+    pass
+
+
+
+
 
 @admin.register(vendor)
 class invertersadmin(admin.ModelAdmin):
     pass
 
 
+
 @admin.register(construction)
-class invertersadmin(admin.ModelAdmin):
+class constructuresadmin(admin.ModelAdmin):
     pass
 # Register your models here.
 

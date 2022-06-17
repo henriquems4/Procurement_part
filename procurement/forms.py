@@ -1,4 +1,4 @@
-from .models import brand,vendor,inverters,construction,pv_modules,ac_cable,dc_cable,structures,inverter_acessories,others,project,order_inverter1,order_pv_modules,order_construction,order_inverter_acessories,order_structures,order_ac_cables,order_dc_cables,order_others,pv_module_brand,inverters_brand
+from .models import brand,vendor,brand_acessories,construction,pv_modules,ac_cable,dc_cable,structures,inverter_acessories,others,project,order_inverter1,order_pv_modules,order_construction,order_inverter_acessories,order_structures,order_ac_cables,order_dc_cables,order_others,pv_module_brand,inverters_brand,brand_cables
 from django import forms
 from django import template
 
@@ -7,12 +7,11 @@ register = template.Library()
 class brand_creation(forms.ModelForm):
     class Meta:
         model = brand
-        fields = {'name','link'}
-        widgets = {
-            'name': forms.TextInput(attrs={'class': 'input1'}),
-            'link': forms.TextInput(attrs={'class': 'input1'}),
+        fields = {'brand_id', 'name', 'link', 'vendor_name', 'vendor_contact', 'vendor_email'}
+        labels = {
+            'brand_id': 'Brand ID (xx):',
         }
-    field_order = ['name','link']
+    field_order = ['brand_id', 'name', 'link', 'vendor_name', 'vendor_contact', 'vendor_email']
 
 class vendor_creation(forms.ModelForm):
     class Meta:
@@ -44,6 +43,15 @@ class brand_inverters_creation(forms.ModelForm):
         }
     field_order = ['brand_id','name','link','vendor_name','vendor_contact','vendor_email']
 
+class brand_inverters_acessories_creation(forms.ModelForm):
+    class Meta:
+        model = brand_acessories
+        fields = {'brand_id','name','link','vendor_name','vendor_contact','vendor_email'}
+        labels = {
+            'brand_id': 'Brand ID (xx):',
+        }
+    field_order = ['brand_id','name','link','vendor_name','vendor_contact','vendor_email']
+
 
 class construction_creation(forms.ModelForm):
     class Meta:
@@ -64,24 +72,6 @@ class construction_creation(forms.ModelForm):
     field_order = ['id', 'product_name', 'payment_conditions', 'vendor', 'brand', 'price']
 
 
-class inverter_acessories_creation(forms.ModelForm):
-    class Meta:
-        model = inverter_acessories
-        fields = {'id', 'brand', 'product_name', 'type', 'vendor', 'price', 'inventory'}
-        widgets = {
-            'id': forms.TextInput(attrs={'class': 'input1'}),
-            'product_name': forms.TextInput(attrs={'class': 'input1'}),
-            'type': forms.TextInput(attrs={'class': 'input1'}),
-            'vendor': forms.Select(attrs={'class': 'bootstrap-select'}),
-            'brand': forms.Select(attrs={'class': 'bootstrap-select'}),
-            'price': forms.TextInput(attrs={'class': 'input1'}),
-            'inventory': forms.TextInput(attrs={'class': 'input1'}),
-        }
-        labels = {
-            'price': 'Price (€)',
-            'inventory': 'Stock',
-        }
-    field_order = ['id', 'product_name', 'type', 'vendor', 'brand', 'price', 'inventory']
 
 
 class structures_creation(forms.ModelForm):

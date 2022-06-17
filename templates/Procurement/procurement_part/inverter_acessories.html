@@ -2,32 +2,31 @@
 {% block title %}Acessories{% endblock %}
 {% block content %}
     <div class="top_creation">
-        <h1>Inverters Acessories</h1> <a href="/inverter_acessories/create_inverter_acessories" class="part_creation">Create Inverter Acessories</a>
+        <h1 class="tittle_component">Inverter Acessories</h1>
+        <a href="/inverter_acessories/create_inverter_acessories" class="bottons2">Create Inverter Acessorie</a>
+        <a href="{% url 'O_and_M:acessories_brand' %}" class="bottons2">Create Brand</a>
     </div>
-    <div class="table">
+    <br></br>
+    <div class="table123">
         <table id="myTable2">
     <tr>
         <th onclick="sortTable(0)">Id</th>
         <th onclick="sortTable(1)">Product Name</th>
         <th onclick="sortTable(2)">Type</th>
         <th onclick="sortTable(3)">Brand</th>
-        <th onclick="sortTable(4)">Vendor</th>
         <th onclick="sortTable2(5)">Price</th>
-        <th onclick="sortTable2(6)">Stock</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
     {% for i in inverter_acessories %}
     <tr>
-        <td><a href="{% url 'O_and_M:inverter_acesssories_detail' i.id %}">{{ i.id }}</a></td>
+        <td><a href="{% url 'O_and_M:inverter_acesssories_detail' i.id %}">{{ i.acessorie_id }}</a></td>
         <td>{{ i.product_name }}</td>
         <td>{{ i.type }}</td>
         <td>{{ i.brand }}</td>
-        <td>{{ i.vendor }}</td>
         <td>{{ i.price }}</td>
-        <td>{{ i.inventory }}</td>
-        <td><a href="{% url 'O_and_M:update_inverter_acessories' i.id%}" class="part_creation2">Update</a></td>
-        <td><a href="{% url 'O_and_M:delete_inverter_acessories' i.id %}" class="part_creation2">Delete</a></td>
+        <td><a href="#" class="part_creation2"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAYZJREFUSEvtlMFRwkAUhv+3M3hN0gEegt6MFRA70A6gAm3AsEABYgViB1iBsQO8OcEDHSRcmSHPWSBMwM0uA3Izx+Tt/739/5dHOPFDJ9bHP8DqsNWiVNZdwbUOM4UAgrXimIBRLubPnpxmJooRkD76LSJ6AuBWiGQs0PZkMqqCGAGzyB8w6J6At1xgWAil8jKknCXATSXMAndVkD0s8gNPTsa6DtOoIQnoAMhYzM91dmkByhohqOl0k7YtxSy6iNVNGOh6vUTu1v8CrH1/UYVEGNogK7vydwBjt5dcGwFl8aKwCqKr3ZwBXp1e0lo2Wbw0Hqi4ibahkvgWoHy1LGqoUK9M06FrjHbEKwGb6WCO3f7kxhb0ciiIwsKWcr1+imTdpfxsCsAxBa0C9uRXfNCfnEo/oJzUYQfMMYOl1//+UGLLyVksOiAKbZNmXhVliL7NGQu0Dl4Vq27rLha1WyJ6UMGvOZ8MjCDmg6OWnS3cfb5bd9E+IgeFfKxw6a/+Kym9zskt+gFA6p8Z3CIBfQAAAABJRU5ErkJggg==" class="reboot_icon"/></a></td>
+        <td><a href="{% url 'O_and_M:delete_inverter_acessories' i.id %}" class="part_creation2"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAO5JREFUSEvtlDESgjAQRX8oqOUGVrZyBLyB3ig30hvIEbS18gZYUxAnIc7EuMkGmIzjjJSQ/Lf79y8CmR+RWR9/AOvwdy3q5GYP9G0l7w+q1E6uV0DZVPJ2CrUS7ECLiwFHABdV9DsfosXFUJ4B1KrAIQSJAIxAC2DrQ1xxAFdV9E2oy+gMrNAbRFvxqpwTN2e5GPgQe75OEU8C6EMeRL+K2uIWzXbgAMxA7WVy8JQbLMAfqBX5GPzkmBKVG1vskMl0TeogFkUqXZNj6iwaOVAXMmvRRosy/iq4/Uj9zqYoVWhWipaKJ2/yEtDvW/QEUImaGdMHaFoAAAAASUVORK5CYII=" class="delete_icon"/></a></td>
     </tr>
     {% endfor %}
 </table>

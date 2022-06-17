@@ -3,14 +3,27 @@
 {% block content %}
     <div class="container">
     <div id="information_form">
-        <form method="post" action="{% url 'O_and_M:pv_modules_creation' %}">
+        <form method="post" action="{% url 'O_and_M:inv_acessories_creation' %}">
             {% csrf_token %}
             <div class="row">
                 <div class="col-25">
-                    <label for="pv_module_id">PV Module ID:</label>
+                    <label for="inv_acessories_id">Inverter Acessorie ID:</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" id="pv_module_id" value="03.PVM-01" name="pv_module_id" readonly>
+                    <input type="text" id="inv_acessories_id" value="05.ACC-01" name="inv_acessories_id" readonly>
+                </div>
+            </div>
+        <div class="row">
+                <div class="col-25">
+                <label for="type">Choose the Type:</label>
+                </div>
+                <div class="col-75">
+                <select id="type" name="type" class="selexct" required>
+                    <option value="">---</option>
+                    {% for i in type_options %}
+                        <option value="{{ i.type_id }}">{{ i.type }}</option>
+                    {% endfor %}
+                </select>
                 </div>
             </div>
             <div class="row">
@@ -28,19 +41,6 @@
             </div>
         <div class="row">
                 <div class="col-25">
-                <label for="power">Choose the Power:</label>
-                </div>
-                <div class="col-75">
-                <select id="power" name="power" class="selexct" required>
-                    <option value="">---</option>
-                    {% for i in power_options %}
-                        <option value="{{ i.power_id }}">{{ i.power }}</option>
-                    {% endfor %}
-                </select>
-                </div>
-            </div>
-        <div class="row">
-                <div class="col-25">
                 <label for="product_name">Product name: </label>
                     </div>
                 <div class="col-75">
@@ -49,35 +49,11 @@
             </div>
         <div class="row">
                 <div class="col-25">
-                <label for="price_EXW">Price(€/Wp) EXW: </label>
+                <label for="price">Price(€): </label>
                      </div>
                 <div class="col-75">
-                <input id="price_EXW" type="text" name="price_EXW" maxlength="100" required>
+                <input id="price" type="text" name="price" maxlength="100" required>
                      </div>
-            </div>
-        <div class="row">
-                <div class="col-25">
-                <label for="price_CIF">Price(€/Wp) CIF: </label>
-                    </div>
-                <div class="col-75">
-                <input id="price_CIF" type="text" name="price_CIF" maxlength="100" required>
-                    </div>
-            </div>
-        <div class="row">
-                <div class="col-25">
-                <label for="price_DDP">Price(€/Wp) DDP: </label>
-                    </div>
-                <div class="col-75">
-                <input id="price_DDP" type="text" name="price_DDP" maxlength="100" required>
-                    </div>
-            </div>
-        <div class="row">
-                <div class="col-25">
-                <label for="price_FOB">Price(€/Wp) FOB: </label>
-                    </div>
-                <div class="col-75">
-                <input id="price_FOB" type="text" name="price_FOB" maxlength="100" required>
-                    </div>
             </div>
         <div class="row">
                 <div class="col-25">
@@ -111,8 +87,8 @@
         let vendor_name = document.querySelector('#nome_vendedor');
         let vendor_contact = document.querySelector('#Contacto_vendedor');
         let vendor_email = document.querySelector('#Email_vendedor');
-        let pv_module_id = document.querySelector('#pv_module_id');
-        let input2 = document.querySelector('#power');
+        let pv_module_id = document.querySelector('#inv_acessories_id');
+        let input2 = document.querySelector('#type');
         input.addEventListener('change', function () {
             {% for i in brand_options %}
             if (this.value === '{{ i.brand_id }}'){
@@ -121,10 +97,10 @@
                 vendor_name.textContent = 'Vendor Name: '+'{{ i.vendor_name }}';
                 vendor_contact.textContent = 'Vendor Contact: '+'{{ i.vendor_contact }}';
                 vendor_email.textContent = 'Vendor Email: '+'{{ i.vendor_email }}';
-                pv_module_id.value = '03.PVM-01'
-                pv_module_id.value = pv_module_id.value.slice(0,9)+'-{{ i.brand_id }}';
+                //pv_module_id.value = '05.ACC-01'
+                //pv_module_id.value = pv_module_id.value.slice(0,9)+'-{{ i.brand_id }}';
             }else if (this.value === ''){
-                pv_module_id.value = '03.PVM-01'
+                //pv_module_id.value = '05.ACC-01'
                 brand_name.textContent = '';
                 brand_link.textContent = '';
                 vendor_name.textContent = '';
@@ -134,18 +110,15 @@
             {% endfor %}
         });
         input2.addEventListener('change', function () {
-            {% for i in power_options %}
-                if(this.value === '{{ i.power_id }}'){
-                    if(pv_module_id.value === '03.PVM-01') {
-                        pv_module_id.value = pv_module_id.value + '-??-{{ i.power_id }}';
-                    }
-                    else {
-                        pv_module_id.value = pv_module_id.value.slice(0,12)+'-{{ i.power_id }}';
-                }}
-            {% endfor %}
-        else if (this.value === ''){
-            pv_module_id.value = pv_module_id.value.slice(0,12)
-        }});
+            {% for i in type_options %}
+                console.log('{{ i.type_id }}')
+                if(this.value === '{{ i.type_id }}'){
+                    pv_module_id.value = pv_module_id.value.slice(0,9) + '-{{ i.type_id }}';
+                }
+                else if (this.value===''){
+                    pv_module_id.value = '05.ACC-01';
+                }
+            {% endfor %}});
     </script>
 
 
