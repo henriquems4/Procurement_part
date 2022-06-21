@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from .models import vendor,inverters,construction,pv_modules,ac_cable,dc_cable,cables,cable_information,type_cable,brand_cables,structures,inverter_acessories,others,order_inverter1,project,order_pv_modules,order_construction,order_inverter_acessories,order_structures,order_ac_cables,order_dc_cables,order_others,pv_modules_power,pv_module_brand,inverters_brand,inverters_power,inv_acessorie_type,brand,brand_acessories
+from .models import vendor,inverters,construction,pv_modules,ac_cable,dc_cable,cables,cable_information,type_cable,brand_cables,structures,inverter_acessories,others,order_inverter1,project,order_pv_modules,order_construction,order_inverter_acessories,order_structures,order_ac_cables,order_dc_cables,order_others,pv_modules_power,pv_module_brand,inverters_brand,inverters_power,inv_acessorie_type,brand,brand_acessories,brand_structures,subtype_structure,type_structure
 from django.http import HttpResponseRedirect,HttpResponse
-from .forms import brand_creation,vendor_creation,construction_creation,brand_inverters_acessories_creation,structures_creation,ac_cable_creation,dc_cable_creation,others_creation,project_creation,number_form_inverter,number_form_pv_modules,number_form_construction,number_form_inverter_acessories,number_form_structures,number_form_ac_cables,number_form_dc_cables,number_form_others,brand_pv_modules_creation,brand_inverters_creation
+from .forms import brand_creation,vendor_creation,construction_creation,brand_inverters_acessories_creation,ac_cable_creation,dc_cable_creation,others_creation,project_creation,number_form_inverter,number_form_pv_modules,number_form_construction,number_form_inverter_acessories,number_form_structures,number_form_ac_cables,number_form_dc_cables,number_form_others,brand_pv_modules_creation,brand_inverters_creation,brand_cables_creation,brand_structures_creation
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -193,6 +193,20 @@ def inverter_acessories_(request):
 
 """*****Cables Creation*****"""
 @login_required(login_url='/login')
+def brand_cables_(request):
+    form = brand_cables_creation()
+    if request.method == 'POST':
+        cables_form=brand_cables_creation(data=request.POST)
+        if cables_form.is_valid():
+            new_cable=cables_form.save(commit=False)
+            new_cable.save()
+            return HttpResponseRedirect ('/cables/',{'message':'Cable brand Saved'})
+    guardar='Save cable Brand'
+    context = {'form':form,'name_save':guardar}
+    return render(request, 'Procurement/procurement_part/pv_module_update.html',context)
+
+
+@login_required(login_url='/login')
 def cable(request):
     parts = cables.objects.all()
     return render(request,'Procurement/procurement_part/cables.html',{'cables':parts})
@@ -209,25 +223,98 @@ def cables_(request):
     done = ''
     if request.method == 'POST':
         try:
-            inv_acessories_id = request.POST.get('inv_acessories_id')
+            cables_id = request.POST.get('cable_id')
             brand = request.POST.get('brand')
             type = request.POST.get('type')
             product_name = request.POST.get('product_name')
             price = request.POST.get('price')
             payment_conditions = request.POST.get('payment_conditions')
-            marca = brand_acessories.objects.get(brand_id=brand)
-            potencia = inv_acessorie_type.objects.get(type_id=type)
-            inverter_acessories.objects.create(acessorie_id=inv_acessories_id, brand=marca, product_name=product_name,
-                                     type=potencia, price=float(price),
-                                     payment_conditions=payment_conditions)
+            information = request.POST.get('information')
+            print(information)
+            marca = brand_cables.objects.get(brand_id=brand)
+            cable_type = type_cable.objects.get(type_id=type)
+            information_cable = cable_information.objects.get(information_id=information,type_cable=cable_type.id)
+            cables.objects.create(cables_id=cables_id, brand=marca, product_name=product_name,
+                                     type=cable_type, price=float(price),
+                                     payment_conditions=payment_conditions,information=information_cable)
             created = True
-            done = 'Inverter Acessorie ' + inv_acessories_id + ' Saved with Sucess'
+            done = 'Cable ' + cables_id + ' Saved with Success'
         except:
             created = True
             done = 'Error: Values were wrong! Try Again!'
     return render(request, 'Procurement/procurement_part/cables_form.html',{'name_save':name_save,'name_part':name_part,'brand_options': brand_options,
                    'type_options': type_options,'information':information_option,'created': created, 'done': done})
 
+
+
+
+@login_required(login_url='/login')
+def delete_cable (request,pk):
+    cable = cables.objects.get(id=pk)
+    next = '/cables/'
+    if request.method=="POST":
+        cable.delete()
+        return redirect(next)
+    context = {'item':cable,'next':next}
+    return render(request,'Procurement/procurement_part/delete.html',context)
+
+"""***** Structure Creation *****"""
+
+def brand_structures_(request):
+    form = brand_structures_creation()
+    if request.method == 'POST':
+        structures_form=brand_structures_creation(data=request.POST)
+        if structures_form.is_valid():
+            new_structure=structures_form.save(commit=False)
+            new_structure.save()
+            return HttpResponseRedirect ('/structures/',{'message':'Structure brand Saved'})
+    guardar='Save structure Brand'
+    context = {'form':form,'name_save':guardar}
+    return render(request, 'Procurement/procurement_part/pv_module_update.html',context)
+
+@login_required(login_url='/login')
+def structure_(request):
+    new_cable= None
+    name_part = 'Structure Creation'
+    name_save = 'Save Structure'
+    type_options = type_structure.objects.all()
+    brand_options = brand_structures.objects.all()
+    information_option = subtype_structure.objects.all()
+    created = False
+    done = ''
+    if request.method == 'POST':
+        try:
+            cables_id = request.POST.get('structure_id')
+            brand = request.POST.get('brand')
+            type = request.POST.get('type')
+            product_name = request.POST.get('product_name')
+            price = request.POST.get('price')
+            payment_conditions = request.POST.get('payment_conditions')
+            information = request.POST.get('information')
+            marca = brand_structures.objects.get(brand_id=brand)
+            structure_type = type_structure.objects.get(type_id=type)
+            information_structure = subtype_structure.objects.get(subtype_id=information,type_structure=structure_type.id)
+            structures.objects.create(structures_id=cables_id, brand=marca, product_name=product_name,
+                                     type=structure_type, price=float(price),
+                                     payment_conditions=payment_conditions,subtype=information_structure)
+            created = True
+            done = 'Structure ' + cables_id + ' Saved with Success'
+        except Exception as e:
+            print(e)
+            #created = True
+            #done = 'Error: Values were wrong! Try Again!'
+    return render(request, 'Procurement/procurement_part/structures_form.html',{'name_save':name_save,'name_part':name_part,'brand_options': brand_options,
+                   'type_options': type_options,'information':information_option,'created': created, 'done': done})
+
+@login_required(login_url='/login')
+def deletestructure(request,pk):
+    structure = structures.objects.get(id=pk)
+    next = '/structures/'
+    if request.method=="POST":
+        structure.delete()
+        return redirect(next)
+    context = {'item':structure,'next':next}
+    return render(request,'Procurement/procurement_part/delete.html',context)
 
 
 """*****Brand Creation*****"""
@@ -498,7 +585,7 @@ def updateconstruction_(request ,pk):
     return render(request, 'Procurement/procurement_part/creation.html',context)
 
 
-@login_required(login_url='/login')
+"""@login_required(login_url='/login')
 def updatestructure_(request ,pk):
     structure=structures.objects.get(id=pk)
     form = structures_creation(instance=structure)
@@ -511,6 +598,7 @@ def updatestructure_(request ,pk):
     guardar='Update Structure'
     context = {'form':form,'name_save':guardar}
     return render(request, 'Procurement/procurement_part/creation.html',context)
+"""
 
 
 @login_required(login_url='/login')
@@ -543,15 +631,7 @@ def update_dc_cable_(request ,pk):
     return render(request, 'Procurement/procurement_part/creation.html',context)
 
 
-@login_required(login_url='/login')
-def deletestructure(request,pk):
-    structure = structures.objects.get(id=pk)
-    next = '/procurement/structures/'
-    if request.method=="POST":
-        structure.delete()
-        return redirect(next)
-    context = {'item':structure,'next':next}
-    return render(request,'Procurement/procurement_part/delete.html',context)
+
 
 
 @login_required(login_url='/login')
@@ -628,7 +708,7 @@ def constructions_(request):
     return render(request, 'Procurement/procurement_part/creation.html',{'form':construction_form,'name_save':name_save,'name_part':name_part})
 
 
-@login_required(login_url='/login')
+"""@login_required(login_url='/login')
 def structures_(request):
     new_structure= None
     name_part = 'Structure Creation'
@@ -641,7 +721,7 @@ def structures_(request):
             return HttpResponseRedirect ('/structures/',{'message':'Structure Saved'})
     else:
         structure_form=structures_creation()
-    return render(request, 'Procurement/procurement_part/creation.html',{'form':structure_form,'name_save':name_save,'name_part':name_part})
+    return render(request, 'Procurement/procurement_part/creation.html',{'form':structure_form,'name_save':name_save,'name_part':name_part})"""
 
 @login_required(login_url='/login')
 def projects(request):

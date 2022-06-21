@@ -1,4 +1,4 @@
-from .models import brand,vendor,brand_acessories,construction,pv_modules,ac_cable,dc_cable,structures,inverter_acessories,others,project,order_inverter1,order_pv_modules,order_construction,order_inverter_acessories,order_structures,order_ac_cables,order_dc_cables,order_others,pv_module_brand,inverters_brand,brand_cables
+from .models import brand,vendor,brand_acessories,construction,pv_modules,ac_cable,dc_cable,brand_structures,inverter_acessories,others,project,order_inverter1,order_pv_modules,order_construction,order_inverter_acessories,order_structures,order_ac_cables,order_dc_cables,order_others,pv_module_brand,inverters_brand,brand_cables
 from django import forms
 from django import template
 
@@ -52,6 +52,26 @@ class brand_inverters_acessories_creation(forms.ModelForm):
         }
     field_order = ['brand_id','name','link','vendor_name','vendor_contact','vendor_email']
 
+class brand_cables_creation(forms.ModelForm):
+    class Meta:
+        model = brand_cables
+        fields = {'brand_id','name','link','vendor_name','vendor_contact','vendor_email'}
+        labels = {
+            'brand_id': 'Brand ID (xx):',
+        }
+    field_order = ['brand_id','name','link','vendor_name','vendor_contact','vendor_email']
+
+
+
+class brand_structures_creation(forms.ModelForm):
+    class Meta:
+        model = brand_structures
+        fields = {'brand_id','name','link','vendor_name','vendor_contact','vendor_email'}
+        labels = {
+            'brand_id': 'Brand ID (xx):',
+        }
+    field_order = ['brand_id','name','link','vendor_name','vendor_contact','vendor_email']
+
 
 class construction_creation(forms.ModelForm):
     class Meta:
@@ -73,25 +93,6 @@ class construction_creation(forms.ModelForm):
 
 
 
-
-class structures_creation(forms.ModelForm):
-    class Meta:
-        model = structures
-        fields = {'id', 'brand', 'product_name', 'type', 'vendor', 'price', 'inventory'}
-        widgets = {
-            'id': forms.TextInput(attrs={'class': 'input1'}),
-            'product_name': forms.TextInput(attrs={'class': 'input1'}),
-            'type': forms.TextInput(attrs={'class': 'input1'}),
-            'vendor': forms.Select(attrs={'class': 'bootstrap-select'}),
-            'brand': forms.Select(attrs={'class': 'bootstrap-select'}),
-            'price': forms.TextInput(attrs={'class': 'input1'}),
-            'inventory': forms.TextInput(attrs={'class': 'input1'}),
-        }
-        labels = {
-            'price': 'Price (€/Wp)',
-            'inventory': 'Stock',
-        }
-    field_order = ['id', 'product_name', 'type', 'vendor', 'brand', 'price', 'inventory']
 
 
 class ac_cable_creation(forms.ModelForm):

@@ -147,7 +147,45 @@ class cables(models.Model):
     def __str__(self):
         return self.product_name
 
+"""***** Structures *****"""
+class type_structure(models.Model):
+    type_id = models.CharField(max_length=50)
+    type = models.CharField(max_length=100)
+    def __str__(self):
+        return self.type
 
+class subtype_structure(models.Model):
+    subtype_id = models.CharField(max_length=20)
+    subtype = models.CharField(max_length=80)
+    type_structure = models.ForeignKey(type_structure,on_delete=models.SET_NULL,blank=True,null=True,related_name='tipo_estrutura')
+
+    def __str__(self):
+        return self.subtype
+
+class brand_structures(models.Model):
+    brand_id = models.CharField(max_length=10)
+    name = models.CharField(max_length=50)
+    link = models.CharField(max_length=150)
+    vendor_name = models.CharField(max_length=100)
+    vendor_contact = models.CharField(max_length=100)
+    vendor_email = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class structures(models.Model):
+    structures_id = models.CharField(max_length=50, default='07.STR-01')
+    type = models.ForeignKey(type_structure, on_delete=models.SET_NULL, blank=True, null=True, related_name='type_estrutura')
+    subtype = models.ForeignKey(subtype_structure, on_delete=models.SET_NULL, blank=True, null=True, related_name='subtype_estrutura')
+    brand = models.ForeignKey(brand_structures,on_delete=models.SET_NULL,blank=True,null=True, related_name='marcas_estrutura')
+    product_name = models.CharField(max_length=50)
+    price = models.CharField(max_length=50)
+    payment_conditions = models.TextField()
+    def __str__(self):
+        return self.product_name
+
+
+"""******************************"""
 
 class vendor(models.Model):
     name = models.CharField(max_length=50)
@@ -180,17 +218,7 @@ class construction(models.Model):
         return self.product_name
 
 
-class structures(models.Model):
-    id = models.CharField(primary_key=True,max_length=50)
-    brand = models.ForeignKey(brand, on_delete=models.CASCADE, related_name='marcas_structures')
-    product_name = models.CharField(max_length=50)
-    status_choices = (('Roof In-plane', 'roof in-plane'), ('Roof Ballast', 'roof ballast'), ('Roof 15ºTilt','roof 15ºtilt'),('Ground 30ºTilt','ground 30ºtilt'),('Ground Ballast','ground ballast'),('Tracker','tracker'))
-    vendor = models.ForeignKey(vendor, on_delete=models.CASCADE, related_name='vendedores_structures')
-    price = models.FloatField(max_length=30)
-    type = models.CharField(max_length=50, choices=status_choices)
-    inventory = models.FloatField(max_length=30)
-    def __str__(self):
-        return self.product_name
+
 
 class ac_cable(models.Model):
     id = models.CharField(primary_key=True,max_length=50)

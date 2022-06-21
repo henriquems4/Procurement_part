@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import vendor,brand,inverters,pv_modules,construction,structures,inverter_acessories,project,order_inverter1,order_structures,order_construction,order_others,order_pv_modules,order_inverter_acessories,\
-    order_ac_cables,order_dc_cables,pv_module_brand,pv_modules_power,inverters_brand,inverters_power,inv_acessorie_type,brand_acessories,cables,cable_information,brand_cables,type_cable
+    order_ac_cables,order_dc_cables,pv_module_brand,pv_modules_power,inverters_brand,inverters_power,inv_acessorie_type,brand_acessories,cables,cable_information,brand_cables,\
+    type_cable,brand_structures,type_structure,subtype_structure
 
 @admin.register(brand)
 class invertersadmin(admin.ModelAdmin):
@@ -60,6 +61,24 @@ class cable_type(admin.ModelAdmin):
 @admin.register(brand_cables)
 class cable_brand(admin.ModelAdmin):
     pass
+
+@admin.register(brand_structures)
+class structure_brand(admin.ModelAdmin):
+    pass
+
+@admin.register(type_structure)
+class structure_type(admin.ModelAdmin):
+    pass
+
+@admin.register(subtype_structure)
+class structure_subtype(admin.ModelAdmin):
+    pass
+
+@admin.register(structures)
+class structures(admin.ModelAdmin):
+    pass
+
+
 
 
 

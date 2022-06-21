@@ -3,14 +3,14 @@
 {% block content %}
     <div class="container">
     <div id="information_form">
-        <form method="post" action="{% url 'O_and_M:cable_creation' %}">
+        <form method="post" action="{% url 'O_and_M:create_structures' %}">
             {% csrf_token %}
             <div class="row">
                 <div class="col-25">
-                    <label for="cable_id">Cable ID:</label>
+                    <label for="structure_id">Structure ID:</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" id="cable_id" value="06.CAB-01" name="cable_id" readonly>
+                    <input type="text" id="structure_id" value="07.STR-01" name="structure_id" readonly>
                 </div>
             </div>
         <div class="row">
@@ -28,7 +28,7 @@
             </div>
         <div class="row">
                 <div class="col-25">
-                <label for="information">Choose the cable:</label>
+                <label for="information">Choose the Subtype:</label>
                 </div>
                 <div class="col-75">
                 <select id="information" name="information" class="selexct" required>
@@ -97,7 +97,7 @@
         let vendor_name = document.querySelector('#nome_vendedor');
         let vendor_contact = document.querySelector('#Contacto_vendedor');
         let vendor_email = document.querySelector('#Email_vendedor');
-        let pv_module_id = document.querySelector('#cable_id');
+        let pv_module_id = document.querySelector('#structure_id');
         let input2 = document.querySelector('#type');
         let select = document.getElementById('information');
         input.addEventListener('change', function () {
@@ -131,12 +131,10 @@
                     opt1.innerHTML = '---';
                     select.appendChild(opt1);
                     {% for j in information %}
-                        console.log('{{ i.type }}');
-                        console.log('{{ j.type_cable }}');
-                        if ('{{ i.type }}' === '{{ j.type_cable }}'){
+                        if ('{{ i.type }}' === '{{ j.type_structure }}'){
                              var opt = document.createElement('option');
-                            opt.value = '{{ j.information_id }}';
-                            opt.innerHTML = '{{ j.information }}';
+                            opt.value = '{{ j.subtype_id }}';
+                            opt.innerHTML = '{{ j.subtype }}';
                             select.appendChild(opt);
                         }
                     {% endfor %}
@@ -154,8 +152,8 @@
             {% endfor %}});
         select.addEventListener('change', function(){
             {% for i in information %}
-                if (this.value === '{{ i.information_id }}'){
-                    pv_module_id.value = pv_module_id.value.slice(0,12) + '-{{ i.information_id }}';
+                if (this.value === '{{ i.subtype_id }}'){
+                    pv_module_id.value = pv_module_id.value.slice(0,12) + '-{{ i.subtype_id }}';
                 }
                 else if (this.value===''){
                     pv_module_id.value = pv_module_id.value.slice(0,12);
